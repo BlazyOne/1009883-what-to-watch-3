@@ -1,6 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Main from '../main/main.jsx';
+import {PropValidator} from '../../prop-validator/prop-validator.jsx';
+
+const onTitleClick = () => {};
 
 const App = (props) => {
   const {promoFilm, films} = props;
@@ -9,17 +11,14 @@ const App = (props) => {
     <Main
       promoFilm={promoFilm}
       films={films}
+      onTitleClick={onTitleClick}
     />
   );
 };
 
 App.propTypes = {
-  promoFilm: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.string.isRequired
-  }),
-  films: PropTypes.arrayOf(PropTypes.string.isRequired)
+  promoFilm: PropValidator.PROMO_FILM,
+  films: PropValidator.FILMS
 };
 
 export default App;

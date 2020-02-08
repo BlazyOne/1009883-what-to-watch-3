@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {PropValidator} from '../../prop-validator/prop-validator.jsx';
 
 const Main = (props) => {
   const {
@@ -8,7 +8,8 @@ const Main = (props) => {
       genre: promoGenre,
       releaseDate: promoReleaseDate
     },
-    films
+    films,
+    onTitleClick
   } = props;
 
   return (
@@ -110,7 +111,7 @@ const Main = (props) => {
                 <div className="small-movie-card__image">
                   <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
                 </div>
-                <h3 className="small-movie-card__title">
+                <h3 className="small-movie-card__title" onClick={onTitleClick}>
                   <a className="small-movie-card__link" href="movie-page.html">{film}</a>
                 </h3>
               </article>
@@ -141,12 +142,9 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  promoFilm: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.string.isRequired
-  }),
-  films: PropTypes.arrayOf(PropTypes.string.isRequired)
+  promoFilm: PropValidator.PROMO_FILM,
+  films: PropValidator.FILMS,
+  onTitleClick: PropValidator.ON_TITLE_CLICK
 };
 
 export default Main;
