@@ -1,6 +1,6 @@
 import React from 'react';
 import Main from '../main/main.jsx';
-import {PropValidator} from '../../prop-validator/prop-validator.jsx';
+import {PropValidator} from '../../prop-validator/prop-validator.js';
 
 const onTitleClick = () => {};
 
