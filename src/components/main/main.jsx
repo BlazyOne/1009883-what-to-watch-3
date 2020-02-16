@@ -10,7 +10,8 @@ const Main = (props) => {
       releaseDate: promoReleaseDate
     },
     films,
-    onTitleClick
+    onTitleClick,
+    onCardClick
   } = props;
 
   return (
@@ -109,6 +110,7 @@ const Main = (props) => {
           <FilmsList
             films={films}
             onTitleClick={onTitleClick}
+            onCardClick={onCardClick}
           />
 
           <div className="catalog__more">
@@ -137,7 +139,8 @@ const Main = (props) => {
 Main.propTypes = {
   promoFilm: PropValidator.PROMO_FILM,
   films: PropValidator.FILMS,
-  onTitleClick: PropValidator.ON_TITLE_CLICK
+  onTitleClick: PropValidator.ON_TITLE_CLICK,
+  onCardClick: PropValidator.ON_CARD_CLICK
 };
 
 export default Main;

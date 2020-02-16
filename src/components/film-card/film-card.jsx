@@ -5,6 +5,7 @@ const FilmCard = (props) => {
   const {
     film: {id, title, image},
     onTitleClick,
+    onCardClick,
     onMouseOverCard
   } = props;
 
@@ -14,7 +15,8 @@ const FilmCard = (props) => {
       id={id}
       onMouseOver={() => {
         onMouseOverCard(id);
-      }}>
+      }}
+      onClick={onCardClick}>
       <div className="small-movie-card__image">
         <img src={image} alt={title} width="280" height="175" />
       </div>
@@ -28,6 +30,7 @@ const FilmCard = (props) => {
 FilmCard.propTypes = {
   film: PropValidator.FILM,
   onTitleClick: PropValidator.ON_TITLE_CLICK,
+  onCardClick: PropValidator.ON_CARD_CLICK,
   onMouseOverCard: PropValidator.ON_MOUSE_OVER_CARD
 };
 

@@ -260,6 +260,7 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           id="film_1"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div
@@ -287,6 +288,7 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           id="film_2"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div
@@ -314,6 +316,7 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           id="film_3"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div
@@ -341,6 +344,7 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           id="film_4"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div
@@ -368,6 +372,7 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           id="film_5"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div
@@ -395,6 +400,7 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           id="film_6"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div
@@ -422,6 +428,7 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           id="film_7"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div
@@ -449,6 +456,7 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           id="film_8"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div

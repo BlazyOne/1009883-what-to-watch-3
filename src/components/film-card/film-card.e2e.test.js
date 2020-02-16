@@ -20,6 +20,7 @@ it(`Should title be clicked`, () => {
       <FilmCard
         film={film}
         onTitleClick={onTitleClick}
+        onCardClick={() => {}}
         onMouseOverCard={() => {}}
       />
   );
@@ -30,6 +31,24 @@ it(`Should title be clicked`, () => {
   expect(onTitleClick.mock.calls.length).toBe(1);
 });
 
+it(`Should card be clicked`, () => {
+  const onCardClick = jest.fn();
+
+  const filmCard = shallow(
+      <FilmCard
+        film={film}
+        onTitleClick={() => {}}
+        onCardClick={onCardClick}
+        onMouseOverCard={() => {}}
+      />
+  );
+
+  const card = filmCard.find(`.small-movie-card`);
+  card.simulate(`click`);
+
+  expect(onCardClick).toHaveBeenCalledTimes(1);
+});
+
 it(`The card id passed to callback is right`, () => {
   const onMouseOverCard = jest.fn();
 
@@ -37,6 +56,7 @@ it(`The card id passed to callback is right`, () => {
       <FilmCard
         film={film}
         onTitleClick={() => {}}
+        onCardClick={() => {}}
         onMouseOverCard={onMouseOverCard}
       />
   );
@@ -46,5 +66,5 @@ it(`The card id passed to callback is right`, () => {
 
   expect(onMouseOverCard).toHaveBeenCalledTimes(1);
 
-  expect(onMouseOverCard.mock.calls[0][0]).toBe(`film_1`);
+  expect(onMouseOverCard).toHaveBeenNthCalledWith(1, `film_1`);
 });

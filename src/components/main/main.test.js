@@ -57,6 +57,7 @@ it(`Shold Main render correctly`, () => {
       promoFilm={promoFilm}
       films={films}
       onTitleClick={() => {}}
+      onCardClick={() => { }}
     />)
     .toJSON();
 

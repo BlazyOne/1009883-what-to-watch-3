@@ -20,7 +20,7 @@ class FilmsList extends PureComponent {
   }
 
   render() {
-    const {films, onTitleClick} = this.props;
+    const {films, onTitleClick, onCardClick} = this.props;
 
     return (
       <div className="catalog__movies-list">
@@ -29,6 +29,7 @@ class FilmsList extends PureComponent {
             key={`films` + index}
             film={film}
             onTitleClick={onTitleClick}
+            onCardClick={onCardClick}
             onMouseOverCard={this._onMouseOverCard}
           />
         )}
@@ -39,7 +40,8 @@ class FilmsList extends PureComponent {
 
 FilmsList.propTypes = {
   films: PropValidator.FILMS,
-  onTitleClick: PropValidator.ON_TITLE_CLICK
+  onTitleClick: PropValidator.ON_TITLE_CLICK,
+  onCardClick: PropValidator.ON_CARD_CLICK
 };
 
 export default FilmsList;
