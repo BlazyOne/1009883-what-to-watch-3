@@ -3,7 +3,7 @@ import {PropValidator} from '../../prop-validator/prop-validator.js';
 
 const FilmPage = (props) => {
   const {
-    filmInfo: {backgroundImage, title, genre, year, poster, ratingScore, ratingLevel, ratingCount, description, director, starring}
+    film: {backgroundImage, title, genre, year, poster, ratingScore, ratingLevel, ratingCount, description, director, starring}
   } = props;
 
   return (
@@ -164,7 +164,7 @@ const FilmPage = (props) => {
 };
 
 FilmPage.propTypes = {
-  filmInfo: PropValidator.FILM_INFO
+  film: PropValidator.FILM
 };
 
 export default FilmPage;

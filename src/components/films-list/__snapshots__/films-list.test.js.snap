@@ -8,17 +8,13 @@ exports[`Should FilmsList render correctly 1`] = `
     className="small-movie-card catalog__movies-card"
     id="film_1"
     onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Fantastic Beasts"
-        height="175"
-        src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-        width="280"
-      />
+      <video />
     </div>
     <h3
       className="small-movie-card__title"
@@ -36,17 +32,13 @@ exports[`Should FilmsList render correctly 1`] = `
     className="small-movie-card catalog__movies-card"
     id="film_2"
     onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Bohemian Rhapsody"
-        height="175"
-        src="img/bohemian-rhapsody.jpg"
-        width="280"
-      />
+      <video />
     </div>
     <h3
       className="small-movie-card__title"
@@ -64,17 +56,13 @@ exports[`Should FilmsList render correctly 1`] = `
     className="small-movie-card catalog__movies-card"
     id="film_3"
     onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Macbeth"
-        height="175"
-        src="img/macbeth.jpg"
-        width="280"
-      />
+      <video />
     </div>
     <h3
       className="small-movie-card__title"
@@ -92,17 +80,13 @@ exports[`Should FilmsList render correctly 1`] = `
     className="small-movie-card catalog__movies-card"
     id="film_4"
     onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Aviator"
-        height="175"
-        src="img/aviator.jpg"
-        width="280"
-      />
+      <video />
     </div>
     <h3
       className="small-movie-card__title"
@@ -120,17 +104,13 @@ exports[`Should FilmsList render correctly 1`] = `
     className="small-movie-card catalog__movies-card"
     id="film_5"
     onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="We need to talk about Kevin"
-        height="175"
-        src="img/we-need-to-talk-about-kevin.jpg"
-        width="280"
-      />
+      <video />
     </div>
     <h3
       className="small-movie-card__title"
@@ -148,17 +128,13 @@ exports[`Should FilmsList render correctly 1`] = `
     className="small-movie-card catalog__movies-card"
     id="film_6"
     onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="What We Do in the Shadows"
-        height="175"
-        src="img/what-we-do-in-the-shadows.jpg"
-        width="280"
-      />
+      <video />
     </div>
     <h3
       className="small-movie-card__title"
@@ -176,17 +152,13 @@ exports[`Should FilmsList render correctly 1`] = `
     className="small-movie-card catalog__movies-card"
     id="film_7"
     onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Revenant"
-        height="175"
-        src="img/revenant.jpg"
-        width="280"
-      />
+      <video />
     </div>
     <h3
       className="small-movie-card__title"
@@ -204,17 +176,13 @@ exports[`Should FilmsList render correctly 1`] = `
     className="small-movie-card catalog__movies-card"
     id="film_8"
     onClick={[Function]}
+    onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Johnny English"
-        height="175"
-        src="img/johnny-english.jpg"
-        width="280"
-      />
+      <video />
     </div>
     <h3
       className="small-movie-card__title"
