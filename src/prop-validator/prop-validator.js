@@ -14,7 +14,14 @@ const FILM = {
   ratingCount: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   director: PropTypes.string.isRequired,
-  starring: PropTypes.string.isRequired
+  starring: PropTypes.arrayOf(PropTypes.string.isRequired),
+  runTime: PropTypes.string.isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.exact({
+    author: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    reviewRating: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired
+  }))
 };
 
 const PropValidator = {
@@ -39,7 +46,9 @@ const PropValidator = {
   STOP_ON_PAUSE: PropTypes.bool.isRequired,
   RENDER_VIDEO_PLAYER: PropTypes.func.isRequired,
   ON_START_PLAYING: PropTypes.func.isRequired,
-  ON_STOP_PLAYING: PropTypes.func.isRequired
+  ON_STOP_PLAYING: PropTypes.func.isRequired,
+  CURRENT_TAB: PropTypes.string.isRequired,
+  ON_TAB_CHANGE: PropTypes.func.isRequired
 };
 
 export {PropValidator};

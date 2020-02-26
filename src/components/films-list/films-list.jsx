@@ -29,7 +29,7 @@ class FilmsList extends PureComponent {
       <div className="catalog__movies-list">
         {films.map((film, index) =>
           <FilmCardWrapped
-            key={`films` + index}
+            key={`films_` + film.title + index}
             film={film}
             onTitleClick={onTitleClick}
             onCardClick={onCardClick}

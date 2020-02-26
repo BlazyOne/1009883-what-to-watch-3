@@ -1,7 +1,7 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import FilmCard from './film-card.jsx';
+import renderer from 'react-test-renderer';
+import FilmPageTabs from './film-page-tabs.jsx';
+import {FilmInfoTabTypes} from '../../const.js';
 
 const film = {
   id: `film_1`,
@@ -60,71 +60,50 @@ In an effort to thwart Grindelwald's plans of raising pure-blood wizards to rule
   ]
 };
 
-Enzyme.configure({
-  adapter: new Adapter()
+it(`Should FilmPageTabs start tab render correctly`, () => {
+  const tree = renderer
+    .create(<FilmPageTabs
+      film={film}
+      currentTab={`start`}
+      onTabChange={() => {}}
+    />)
+    .toJSON();
+
+  expect(tree).toMatchSnapshot();
 });
 
-it(`Should title be clicked`, () => {
-  const onTitleClick = jest.fn();
+it(`Should FilmPageTabs overview tab render correctly`, () => {
+  const tree = renderer
+    .create(<FilmPageTabs
+      film={film}
+      currentTab={FilmInfoTabTypes.OVERVIEW}
+      onTabChange={() => {}}
+    />)
+    .toJSON();
 
-  const filmCard = shallow(
-      <FilmCard
-        film={film}
-        onTitleClick={onTitleClick}
-        onCardClick={() => {}}
-        onMouseOverCard={() => {}}
-        renderVideoPlayer={() => {}}
-        onStartPlaying={() => {}}
-        onStopPlaying={() => {}}
-      />
-  );
-
-  const title = filmCard.find(`.small-movie-card__title`);
-  title.simulate(`click`);
-
-  expect(onTitleClick.mock.calls.length).toBe(1);
+  expect(tree).toMatchSnapshot();
 });
 
-it(`Should card be clicked`, () => {
-  const onCardClick = jest.fn();
+it(`Should FilmPageTabs details tab render correctly`, () => {
+  const tree = renderer
+    .create(<FilmPageTabs
+      film={film}
+      currentTab={FilmInfoTabTypes.DETAILS}
+      onTabChange={() => { }}
+    />)
+    .toJSON();
 
-  const filmCard = shallow(
-      <FilmCard
-        film={film}
-        onTitleClick={() => {}}
-        onCardClick={onCardClick}
-        onMouseOverCard={() => {}}
-        renderVideoPlayer={() => {}}
-        onStartPlaying={() => {}}
-        onStopPlaying={() => {}}
-      />
-  );
-
-  const card = filmCard.find(`.small-movie-card`);
-  card.simulate(`click`);
-
-  expect(onCardClick).toHaveBeenCalledTimes(1);
+  expect(tree).toMatchSnapshot();
 });
 
-it(`The card id passed to callback is right`, () => {
-  const onMouseOverCard = jest.fn();
+it(`Should FilmPageTabs reviews tab render correctly`, () => {
+  const tree = renderer
+    .create(<FilmPageTabs
+      film={film}
+      currentTab={FilmInfoTabTypes.REVIEWS}
+      onTabChange={() => { }}
+    />)
+    .toJSON();
 
-  const filmCard = shallow(
-      <FilmCard
-        film={film}
-        onTitleClick={() => {}}
-        onCardClick={() => {}}
-        onMouseOverCard={onMouseOverCard}
-        renderVideoPlayer={() => {}}
-        onStartPlaying={() => {}}
-        onStopPlaying={() => {}}
-      />
-  );
-
-  const card = filmCard.find(`.small-movie-card`);
-  card.simulate(`mouseover`);
-
-  expect(onMouseOverCard).toHaveBeenCalledTimes(1);
-
-  expect(onMouseOverCard).toHaveBeenNthCalledWith(1, `film_1`);
+  expect(tree).toMatchSnapshot();
 });

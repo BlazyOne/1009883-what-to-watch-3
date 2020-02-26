@@ -27,6 +27,7 @@ const FilmCard = (props) => {
         onStopPlaying();
       }}
       onClick={() => {
+        clearTimeout(currentTimer);
         onCardClick(id);
       }}>
       <div className="small-movie-card__image">
