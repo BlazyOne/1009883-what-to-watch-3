@@ -1,6 +1,4 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import FilmPage from './film-page.jsx';
+import {reducer, ActionCreator, ActionType} from './reducer.js';
 
 const films = [
   {
@@ -442,18 +440,34 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
   },
 ];
 
-it(`Should FilmPage render correctly`, () => {
-  const tree = renderer
-    .create(<FilmPage
-      film={films[0]}
-      films={films}
-      onTitleClick={() => {}}
-      onCardClick={() => {}}
-    />, {
-      createNodeMock: () => {
-        return {};
-      }
-    }).toJSON();
+it(`Reducer without additional parameters should return initial state`, () => {
+  expect(reducer(void 0, {})).toEqual({
+    genre: `All`,
+    films,
+    promoFilm: films[0]
+  });
+});
 
-  expect(tree).toMatchSnapshot();
+it(`Reducer shold change genre to a given value`, () => {
+  expect(reducer({
+    genre: `All`,
+    films,
+    promoFilm: films[0]
+  }, {
+    type: ActionType.CHANGE_GENRE,
+    payload: `Comedy`
+  })).toEqual({
+    genre: `Comedy`,
+    films,
+    promoFilm: films[0]
+  });
+});
+
+describe(`Action creators work correctly`, () => {
+  it(`Action creator for setting genre retuns correct action`, () => {
+    expect(ActionCreator.changeGenre(`Comedy`)).toEqual({
+      type: ActionType.CHANGE_GENRE,
+      payload: `Comedy`
+    });
+  });
 });

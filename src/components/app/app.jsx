@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer/reducer.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
 import {PropValidator} from '../../prop-validator/prop-validator.js';
@@ -14,7 +16,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {promoFilm, films} = this.props;
+    const {promoFilm, films, genre, onGenreChange} = this.props;
     const {screen} = this.state;
 
     if (screen === `main`) {
@@ -22,6 +24,7 @@ class App extends PureComponent {
         <Main
           promoFilm={promoFilm}
           films={films}
+          genre={genre}
           onTitleClick={(evt) => {
             evt.preventDefault();
           }}
@@ -30,6 +33,7 @@ class App extends PureComponent {
               screen: filmId,
             }));
           }}
+          onGenreChange={onGenreChange}
         />
       );
     }
@@ -64,7 +68,7 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-film-page">
             <FilmPage
-              film={this.props.films[1]}
+              film={this.props.films[0]}
               films={this.props.films}
               onTitleClick={(evt) => {
                 evt.preventDefault();
@@ -83,8 +87,23 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  promoFilm: PropValidator.PROMO_FILM,
-  films: PropValidator.FILMS
+  promoFilm: PropValidator.FILM,
+  films: PropValidator.FILMS,
+  genre: PropValidator.GENRE,
+  onGenreChange: PropValidator.ON_GENRE_CHANGE
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  promoFilm: state.promoFilm,
+  films: state.films,
+  genre: state.genre
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onGenreChange(genre) {
+    dispatch(ActionCreator.changeGenre(genre));
+  }
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

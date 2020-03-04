@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import FilmPage from './film-page.jsx';
+import GamesList from './genres-list.jsx';
 
 const films = [
   {
@@ -442,18 +442,13 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
   },
 ];
 
-it(`Should FilmPage render correctly`, () => {
+it(`Shold GenresList render correctly`, () => {
   const tree = renderer
-    .create(<FilmPage
-      film={films[0]}
+    .create(<GamesList
       films={films}
-      onTitleClick={() => {}}
-      onCardClick={() => {}}
-    />, {
-      createNodeMock: () => {
-        return {};
-      }
-    }).toJSON();
+      genre={`All`}
+      onGenreChange={() => {}}
+    />).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

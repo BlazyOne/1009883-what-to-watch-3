@@ -6,10 +6,24 @@ const STARRING_SHORT_LENGTH = 4;
 
 const FilmPageTabs = (props) => {
   const {
-    film: {genre, year, ratingScore, ratingLevel, ratingCount, description, director, starring, runTime, reviews},
+    film: {genre, year, ratingScore, ratingCount, description, director, starring, runTime, reviews},
     currentTab,
     onTabChange
   } = props;
+
+  const ratingScoreNumber = +ratingScore.replace(`,`, `.`);
+  let ratingLevel;
+  if (ratingScoreNumber >= 0 && ratingScoreNumber < 3) {
+    ratingLevel = `Bad`;
+  } else if (ratingScoreNumber >= 3 && ratingScoreNumber < 5) {
+    ratingLevel = `Normal`;
+  } else if (ratingScoreNumber >= 5 && ratingScoreNumber < 8) {
+    ratingLevel = `Good`;
+  } else if (ratingScoreNumber >= 8 && ratingScoreNumber < 10) {
+    ratingLevel = `Very good`;
+  } else if (ratingScoreNumber === 10) {
+    ratingLevel = `Awesome`;
+  }
 
   const overviewNavClassName = `movie-nav__item ` +
     (currentTab === `start` || currentTab === FilmInfoTabTypes.OVERVIEW ?

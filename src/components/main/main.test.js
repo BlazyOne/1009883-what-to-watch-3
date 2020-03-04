@@ -2,12 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Main from './main.jsx';
 
-const promoFilm = {
-  title: `The Grand Budapest Hotel`,
-  genre: `Drama`,
-  releaseDate: `2014`
-};
-
 const films = [
   {
     id: `film_1`,
@@ -19,7 +13,6 @@ const films = [
     year: `2018`,
     poster: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     ratingScore: `8,9`,
-    ratingLevel: `Very good`,
     ratingCount: `240 ratings`,
     description: `The second installment of the "Fantastic Beasts" series featuring the adventures of Magizoologist Newt Scamander.
 In an effort to thwart Grindelwald's plans of raising pure-blood wizards to rule over all non-magical beings, Albus Dumbledore enlists his former student Newt Scamander, who agrees to help, though he's unaware of the dangers that lie ahead. Lines are drawn as love and loyalty are tested, even among the truest friends and family, in an increasingly divided wizarding world.`,
@@ -75,7 +68,6 @@ In an effort to thwart Grindelwald's plans of raising pure-blood wizards to rule
     year: `2018`,
     poster: `img/bohemian-rhapsody.jpg`,
     ratingScore: `8,9`,
-    ratingLevel: `Very good`,
     ratingCount: `240 ratings`,
     description: `The story of the legendary British rock band Queen and lead singer Freddie Mercury, leading up to their famous performance at Live Aid (1985).
 Bohemian Rhapsody is a foot-stomping celebration of Queen, their music and their extraordinary lead singer Freddie Mercury. Freddie defied stereotypes and shattered convention to become one of the most beloved entertainers on the planet. The film traces the meteoric rise of the band through their iconic songs and revolutionary sound. They reach unparalleled success, but in an unexpected turn Freddie, surrounded by darker influences, shuns Queen in pursuit of his solo career. Having suffered greatly without the collaboration of Queen, Freddie manages to reunite with his bandmates just in time for Live Aid. While bravely facing a recent AIDS diagnosis, Freddie leads the band in one of the greatest performances in the history of rock music. Queen cements a legacy that continues to inspire outsiders, dreamers and music lovers to this day.`,
@@ -131,7 +123,6 @@ Bohemian Rhapsody is a foot-stomping celebration of Queen, their music and their
     year: `2015`,
     poster: `img/macbeth.jpg`,
     ratingScore: `8,9`,
-    ratingLevel: `Very good`,
     ratingCount: `240 ratings`,
     description: `Macbeth, the Thane of Glamis, receives a prophecy from a trio of witches that one day he will become King of Scotland. Consumed by ambition and spurred to action by his wife, Macbeth murders his king and takes the throne for himself.`,
     director: `Justin Kurzel`,
@@ -186,7 +177,6 @@ Bohemian Rhapsody is a foot-stomping celebration of Queen, their music and their
     year: `2005`,
     poster: `img/aviator.jpg`,
     ratingScore: `8,9`,
-    ratingLevel: `Very good`,
     ratingCount: `240 ratings`,
     description: `A biopic depicting the early years of legendary Director and aviator Howard Hughes' career from the late 1920s to the mid 1940s.
 Biopic of billionaire Howard Hughes, starting with his early filmmaking years as owner of R.K.O. Pictures, but mostly focusing on his role in designing and promoting new aircraft. Hughes was a risk-taker spending several fortunes on designing experimental aircraft and eventually founding TWA as a rival to Pan Am airlines owned by his great rival Juan Trippe. When Trippe's politico Senator Ralph Owen Brewster accuses Hughes of being a war profiteer, it's Hughes who gains the upper hand. Hughes also had many women in his life including a long relationship with Katharine Hepburn. From an early age, however, Hughes was also germophobic and would have severe bouts of mental illness.`,
@@ -242,7 +232,6 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
     year: `2012`,
     poster: `img/we-need-to-talk-about-kevin.jpg`,
     ratingScore: `8,9`,
-    ratingLevel: `Very good`,
     ratingCount: `240 ratings`,
     description: `Kevin's mother struggles to love her strange child, despite the increasingly dangerous things he says and does as he grows up. But Kevin is just getting started, and his final act will be beyond anything anyone imagined.`,
     director: `Lynne Ramsay`,
@@ -297,7 +286,6 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
     year: `2015`,
     poster: `img/what-we-do-in-the-shadows.jpg`,
     ratingScore: `8,9`,
-    ratingLevel: `Very good`,
     ratingCount: `240 ratings`,
     description: `Follow the lives of Viago (Taika Waititi), Deacon (Jonathan Brugh), and Vladislav (Jemaine Clement) - three flatmates who are just trying to get by and overcome life's obstacles-like being immortal vampires who must feast on human blood. Hundreds of years old, the vampires are finding that beyond sunlight catastrophes, hitting the main artery, and not being able to get a sense of their wardrobe without a reflection-modern society has them struggling with the mundane like paying rent, keeping up with the chore wheel, trying to get into nightclubs, and overcoming flatmate conflicts.`,
     director: `Jemaine Clement, Taika Waititi`,
@@ -352,7 +340,6 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
     year: `2015`,
     poster: `img/revenant.jpg`,
     ratingScore: `8,9`,
-    ratingLevel: `Very good`,
     ratingCount: `240 ratings`,
     description: `Set in 1820s America, fur trapper and Frontiersman Hugh Glass struggles to survive the harsh winter after an oppressive Ree Indian attack and a mauling from a hostile maternal bear. Abandoned by his crew, Glass attempts to cross the bleak wasteland with only a single notion set in his mind; Revenge.
 In the untamed and unforgiving wilderness of mid-winter snow-capped Missouri, the experienced nineteenth-century tracker, Hugh Glass, and his son, Hawk, lead a hunting and trapping expedition in the uncharted territory of the fierce Indian tribe, Arikara. As the party of trappers struggle to navigate back to the distant Fort Kiowa, a swift and devastating attack by a formidable grizzly bear leaves a brutally mauled Glass on the brink of death, double-crossed and abandoned by his men. Now, only Hugh's rabid desire to live can help him survive the piercing cold and the grave dangers in one of the world's most inhospitable environments, giving him the strength to drag his unrecognisable carcass and exact his revenge. However, will the man who has returned from the dead taste the ambrosial fruit of retribution?`,
@@ -408,7 +395,6 @@ In the untamed and unforgiving wilderness of mid-winter snow-capped Missouri, th
     year: `2003`,
     poster: `img/johnny-english.jpg`,
     ratingScore: `8,9`,
-    ratingLevel: `Very good`,
     ratingCount: `240 ratings`,
     description: `After a sudden attack on MI5, Johnny English, Britain's most confident, yet unintelligent spy, becomes Britain's only spy.
 When a funeral of a British spy is attacked, all of the remaining spies are killed. Only one spy is left and is now Britain's last hope. Johnny English and his sidekick, Bough have been assigned the case of investigating the theft of the British Crown Jewels. The prime suspect is a mysterious French entrepreneur, known as Pascal Sauvage. English and Bough soon find out the horrifying truth behind the theft and Sauvage, but it's not going to be an easy job to bring him to justice.`,
@@ -456,13 +442,17 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
   },
 ];
 
+const promoFilm = films[0];
+
 it(`Shold Main render correctly`, () => {
   const tree = renderer
     .create(<Main
       promoFilm={promoFilm}
       films={films}
+      genre={`All`}
       onTitleClick={() => {}}
-      onCardClick={() => { }}
+      onCardClick={() => {}}
+      onGenreChange={() => {}}
     />, {
       createNodeMock: () => {
         return {};

@@ -1,6 +1,7 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import FilmPage from './film-page.jsx';
+import Enzyme, {mount} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import GenresList from './genres-list.jsx';
 
 const films = [
   {
@@ -442,18 +443,24 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
   },
 ];
 
-it(`Should FilmPage render correctly`, () => {
-  const tree = renderer
-    .create(<FilmPage
-      film={films[0]}
-      films={films}
-      onTitleClick={() => {}}
-      onCardClick={() => {}}
-    />, {
-      createNodeMock: () => {
-        return {};
-      }
-    }).toJSON();
+Enzyme.configure({
+  adapter: new Adapter()
+});
 
-  expect(tree).toMatchSnapshot();
+it(`Should genre link be clicked`, () => {
+  const onGenreChange = jest.fn();
+
+  const genresList = mount(
+      <GenresList
+        films={films}
+        genre={`All`}
+        onGenreChange={onGenreChange}
+      />
+  );
+
+  const genreLinks = genresList.find(`.catalog__genres-link`);
+  genreLinks.at(0).simulate(`click`);
+  expect(onGenreChange).toHaveBeenNthCalledWith(1, `All`);
+  genreLinks.at(1).simulate(`click`);
+  expect(onGenreChange).toHaveBeenCalledTimes(2);
 });

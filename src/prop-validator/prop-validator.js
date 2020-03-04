@@ -10,7 +10,6 @@ const FILM = {
   year: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
   ratingScore: PropTypes.string.isRequired,
-  ratingLevel: PropTypes.string.isRequired,
   ratingCount: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   director: PropTypes.string.isRequired,
@@ -25,11 +24,6 @@ const FILM = {
 };
 
 const PropValidator = {
-  PROMO_FILM: PropTypes.exact({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.string.isRequired
-  }),
   FILMS: PropTypes.arrayOf(
       PropTypes.exact(FILM)
   ),
@@ -48,7 +42,9 @@ const PropValidator = {
   ON_START_PLAYING: PropTypes.func.isRequired,
   ON_STOP_PLAYING: PropTypes.func.isRequired,
   CURRENT_TAB: PropTypes.string.isRequired,
-  ON_TAB_CHANGE: PropTypes.func.isRequired
+  ON_TAB_CHANGE: PropTypes.func.isRequired,
+  GENRE: PropTypes.string.isRequired,
+  ON_GENRE_CHANGE: PropTypes.func.isRequired
 };
 
 export {PropValidator};

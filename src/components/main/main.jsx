@@ -1,5 +1,6 @@
 import React from 'react';
 import {PropValidator} from '../../prop-validator/prop-validator.js';
+import GenresList from '../genres-list/genres-list.jsx';
 import FilmsList from '../films-list/films-list.jsx';
 
 const Main = (props) => {
@@ -7,18 +8,29 @@ const Main = (props) => {
     promoFilm: {
       title: promoTitle,
       genre: promoGenre,
-      releaseDate: promoReleaseDate
+      year: promoYear,
+      backgroundImage: promoBackgroundImage,
+      poster: promoPoster
     },
     films,
+    genre,
     onTitleClick,
-    onCardClick
+    onCardClick,
+    onGenreChange
   } = props;
+  const filteredFilms = films.filter((film) => {
+    if (genre === `All`) {
+      return true;
+    }
+
+    return film.genre === genre;
+  });
 
   return (
     <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={promoBackgroundImage} alt={promoTitle} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -42,14 +54,14 @@ const Main = (props) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoPoster} alt={promoTitle + `poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
               <h2 className="movie-card__title">{promoTitle}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{promoGenre}</span>
-                <span className="movie-card__year">{promoReleaseDate}</span>
+                <span className="movie-card__year">{promoYear}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -74,41 +86,14 @@ const Main = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenresList
+            films={films}
+            genre={genre}
+            onGenreChange={onGenreChange}
+          />
 
           <FilmsList
-            films={films}
+            films={filteredFilms}
             onTitleClick={onTitleClick}
             onCardClick={onCardClick}
           />
@@ -137,10 +122,12 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  promoFilm: PropValidator.PROMO_FILM,
+  promoFilm: PropValidator.FILM,
   films: PropValidator.FILMS,
+  genre: PropValidator.GENRE,
   onTitleClick: PropValidator.ON_TITLE_CLICK,
-  onCardClick: PropValidator.ON_CARD_CLICK
+  onCardClick: PropValidator.ON_CARD_CLICK,
+  onGenreChange: PropValidator.ON_GENRE_CHANGE
 };
 
 export default Main;
