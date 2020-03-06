@@ -442,17 +442,41 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
   },
 ];
 
+const filmsExtra = films.concat(films[0]);
+
 const promoFilm = films[0];
 
-it(`Shold Main render correctly`, () => {
+it(`Shold Main render correctly when all films are showed`, () => {
   const tree = renderer
     .create(<Main
       promoFilm={promoFilm}
       films={films}
+      filteredFilms={films}
       genre={`All`}
       onTitleClick={() => {}}
       onCardClick={() => {}}
       onGenreChange={() => {}}
+      onIncrementShowed={() => {}}
+    />, {
+      createNodeMock: () => {
+        return {};
+      }
+    }).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`Shold Main render correctly when not all films are showed`, () => {
+  const tree = renderer
+    .create(<Main
+      promoFilm={promoFilm}
+      films={filmsExtra}
+      filteredFilms={films}
+      genre={`All`}
+      onTitleClick={() => { }}
+      onCardClick={() => { }}
+      onGenreChange={() => { }}
+      onIncrementShowed={() => { }}
     />, {
       createNodeMock: () => {
         return {};

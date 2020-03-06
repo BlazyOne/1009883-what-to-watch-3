@@ -2,6 +2,7 @@ import React from 'react';
 import {PropValidator} from '../../prop-validator/prop-validator.js';
 import GenresList from '../genres-list/genres-list.jsx';
 import FilmsList from '../films-list/films-list.jsx';
+import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 
 const Main = (props) => {
   const {
@@ -13,18 +14,13 @@ const Main = (props) => {
       poster: promoPoster
     },
     films,
+    filteredFilms,
     genre,
     onTitleClick,
     onCardClick,
-    onGenreChange
+    onGenreChange,
+    onIncrementShowed
   } = props;
-  const filteredFilms = films.filter((film) => {
-    if (genre === `All`) {
-      return true;
-    }
-
-    return film.genre === genre;
-  });
 
   return (
     <React.Fragment>
@@ -98,9 +94,11 @@ const Main = (props) => {
             onCardClick={onCardClick}
           />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {films.length > filteredFilms.length ?
+            <ShowMoreButton
+              onIncrementShowed={onIncrementShowed}
+            /> :
+            ``}
         </section>
 
         <footer className="page-footer">
@@ -124,10 +122,12 @@ const Main = (props) => {
 Main.propTypes = {
   promoFilm: PropValidator.FILM,
   films: PropValidator.FILMS,
+  filteredFilms: PropValidator.FILMS,
   genre: PropValidator.GENRE,
   onTitleClick: PropValidator.ON_TITLE_CLICK,
   onCardClick: PropValidator.ON_CARD_CLICK,
-  onGenreChange: PropValidator.ON_GENRE_CHANGE
+  onGenreChange: PropValidator.ON_GENRE_CHANGE,
+  onIncrementShowed: PropValidator.ON_INCREMENT_SHOWED
 };
 
 export default Main;

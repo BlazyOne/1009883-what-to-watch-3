@@ -44,7 +44,8 @@ const PropValidator = {
   CURRENT_TAB: PropTypes.string.isRequired,
   ON_TAB_CHANGE: PropTypes.func.isRequired,
   GENRE: PropTypes.string.isRequired,
-  ON_GENRE_CHANGE: PropTypes.func.isRequired
+  ON_GENRE_CHANGE: PropTypes.func.isRequired,
+  ON_INCREMENT_SHOWED: PropTypes.func.isRequired
 };
 
 export {PropValidator};

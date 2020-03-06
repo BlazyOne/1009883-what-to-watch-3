@@ -4,17 +4,19 @@ import FilmPageTabs from '../film-page-tabs/film-page-tabs.jsx';
 import FilmsList from '../films-list/films-list.jsx';
 import withTabs from '../../hocs/with-tabs/with-tabs.jsx';
 
+const SIMILAR_FILMS_AMOUNT = 4;
+
 const FilmPageTabsWrapped = withTabs(FilmPageTabs);
 
 const FilmPage = (props) => {
   const {
-    film: {backgroundImage, title, genre, year, poster},
+    film: {id, backgroundImage, title, genre, year, poster},
     films,
     onTitleClick,
     onCardClick
   } = props;
 
-  const similarFilms = films.filter((film) => film.genre === genre && film.title !== title).slice(0, 4);
+  const similarFilms = films.filter((film) => film.genre === genre && film.id !== id).slice(0, SIMILAR_FILMS_AMOUNT);
 
   return (
     <React.Fragment>

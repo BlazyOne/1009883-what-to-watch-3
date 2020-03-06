@@ -440,18 +440,27 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
   },
 ];
 
+const filmsExtra = films.concat(Object.assign({}, films[0], {id: `film_9`}), Object.assign({}, films[1], {id: `film_10`}));
+
+const FILMS_SHOWED_ON_START_AMOUNT = 8;
+const FILMS_SHOWED_INCREMENT_AMOUNT = 8;
+
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     genre: `All`,
-    films,
+    films: filmsExtra,
+    filteredFilms: filmsExtra.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
+    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
     promoFilm: films[0]
   });
 });
 
-it(`Reducer shold change genre to a given value`, () => {
+it(`Reducer should change genre to a given value`, () => {
   expect(reducer({
     genre: `All`,
     films,
+    filteredFilms: films.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
+    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
     promoFilm: films[0]
   }, {
     type: ActionType.CHANGE_GENRE,
@@ -459,6 +468,61 @@ it(`Reducer shold change genre to a given value`, () => {
   })).toEqual({
     genre: `Comedy`,
     films,
+    filteredFilms: films.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
+    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
+    promoFilm: films[0]
+  });
+});
+
+it(`Reducer should increment showed cards by a given value`, () => {
+  expect(reducer({
+    genre: `All`,
+    films,
+    filteredFilms: films.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
+    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
+    promoFilm: films[0]
+  }, {
+    type: ActionType.INCREMENT_SHOWED,
+    payload: FILMS_SHOWED_INCREMENT_AMOUNT
+  })).toEqual({
+    genre: `All`,
+    films,
+    filteredFilms: films.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
+    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT + FILMS_SHOWED_INCREMENT_AMOUNT,
+    promoFilm: films[0]
+  });
+});
+
+it(`Reducer should update filtered films correctly`, () => {
+  expect(reducer({
+    genre: `All`,
+    films: filmsExtra,
+    filteredFilms: filmsExtra.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
+    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT + FILMS_SHOWED_INCREMENT_AMOUNT,
+    promoFilm: films[0]
+  }, {
+    type: ActionType.FILTERED_FILMS_UPDATE
+  })).toEqual({
+    genre: `All`,
+    films: filmsExtra,
+    filteredFilms: filmsExtra.slice(0, FILMS_SHOWED_ON_START_AMOUNT + FILMS_SHOWED_INCREMENT_AMOUNT),
+    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT + FILMS_SHOWED_INCREMENT_AMOUNT,
+    promoFilm: films[0]
+  });
+
+  expect(reducer({
+    genre: `Comedy`,
+    films: filmsExtra,
+    filteredFilms: filmsExtra.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
+    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
+    promoFilm: films[0]
+  }, {
+    type: ActionType.FILTERED_FILMS_UPDATE
+  })).toEqual({
+    genre: `Comedy`,
+    films: filmsExtra,
+    filteredFilms: filmsExtra.filter((film) => film.genre === `Comedy`).slice(0, FILMS_SHOWED_ON_START_AMOUNT),
+    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
     promoFilm: films[0]
   });
 });
@@ -468,6 +532,19 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.changeGenre(`Comedy`)).toEqual({
       type: ActionType.CHANGE_GENRE,
       payload: `Comedy`
+    });
+  });
+
+  it(`Action creator for incrementing showed cards returns correct action`, () => {
+    expect(ActionCreator.incrementShowed()).toEqual({
+      type: ActionType.INCREMENT_SHOWED,
+      payload: FILMS_SHOWED_INCREMENT_AMOUNT
+    });
+  });
+
+  it(`Action creator for updating filtered films returns correct action`, () => {
+    expect(ActionCreator.filteredFilmsUpdate()).toEqual({
+      type: ActionType.FILTERED_FILMS_UPDATE
     });
   });
 });

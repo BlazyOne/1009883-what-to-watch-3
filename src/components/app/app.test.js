@@ -449,8 +449,10 @@ it(`Should App render correctly`, () => {
     .create(<App
       promoFilm={promoFilm}
       films={films}
+      filteredFilms={films.slice(0, 8)}
       genre={`All`}
       onGenreChange={() => {}}
+      onIncrementShowed={() => {}}
     />, {
       createNodeMock: () => {
         return {};

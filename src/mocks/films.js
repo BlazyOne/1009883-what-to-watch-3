@@ -435,7 +435,9 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
         message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`
       }
     ]
-  },
+  }
 ];
 
-export default films;
+const filmsExtra = films.concat(Object.assign({}, films[0], {id: `film_9`}), Object.assign({}, films[1], {id: `film_10`}));
+
+export default filmsExtra;
