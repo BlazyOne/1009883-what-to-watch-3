@@ -16,7 +16,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {promoFilm, films, filteredFilms, genre, onGenreChange, onIncrementShowed} = this.props;
+    const {promoFilm, films, showedFilmsAmount, genre, onGenreChange, onIncrementShowed} = this.props;
     const {screen} = this.state;
 
     if (screen === `main`) {
@@ -24,7 +24,7 @@ class App extends PureComponent {
         <Main
           promoFilm={promoFilm}
           films={films}
-          filteredFilms={filteredFilms}
+          showedFilmsAmount={showedFilmsAmount}
           genre={genre}
           onTitleClick={(evt) => {
             evt.preventDefault();
@@ -91,7 +91,7 @@ class App extends PureComponent {
 App.propTypes = {
   promoFilm: PropValidator.FILM,
   films: PropValidator.FILMS,
-  filteredFilms: PropValidator.FILMS,
+  showedFilmsAmount: PropValidator.SHOWED_FILMS_AMOUNT,
   genre: PropValidator.GENRE,
   onGenreChange: PropValidator.ON_GENRE_CHANGE,
   onIncrementShowed: PropValidator.ON_INCREMENT_SHOWED
@@ -100,7 +100,6 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   promoFilm: state.promoFilm,
   films: state.films,
-  filteredFilms: state.filteredFilms,
   genre: state.genre,
   showedFilmsAmount: state.showedFilmsAmount
 });
@@ -108,11 +107,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onGenreChange(genre) {
     dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.filteredFilmsUpdate());
+    dispatch(ActionCreator.resetShowed());
   },
   onIncrementShowed() {
     dispatch(ActionCreator.incrementShowed());
-    dispatch(ActionCreator.filteredFilmsUpdate());
   }
 });
 

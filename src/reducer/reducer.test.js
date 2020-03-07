@@ -449,7 +449,6 @@ it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     genre: `All`,
     films: filmsExtra,
-    filteredFilms: filmsExtra.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
     showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
     promoFilm: films[0]
   });
@@ -459,7 +458,6 @@ it(`Reducer should change genre to a given value`, () => {
   expect(reducer({
     genre: `All`,
     films,
-    filteredFilms: films.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
     showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
     promoFilm: films[0]
   }, {
@@ -468,7 +466,6 @@ it(`Reducer should change genre to a given value`, () => {
   })).toEqual({
     genre: `Comedy`,
     films,
-    filteredFilms: films.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
     showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
     promoFilm: films[0]
   });
@@ -478,7 +475,6 @@ it(`Reducer should increment showed cards by a given value`, () => {
   expect(reducer({
     genre: `All`,
     films,
-    filteredFilms: films.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
     showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
     promoFilm: films[0]
   }, {
@@ -487,41 +483,22 @@ it(`Reducer should increment showed cards by a given value`, () => {
   })).toEqual({
     genre: `All`,
     films,
-    filteredFilms: films.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
     showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT + FILMS_SHOWED_INCREMENT_AMOUNT,
     promoFilm: films[0]
   });
 });
 
-it(`Reducer should update filtered films correctly`, () => {
+it(`Reducer should reset showed cards number to a correct value`, () => {
   expect(reducer({
     genre: `All`,
-    films: filmsExtra,
-    filteredFilms: filmsExtra.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
-    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT + FILMS_SHOWED_INCREMENT_AMOUNT,
+    films,
+    showedFilmsAmount: 16,
     promoFilm: films[0]
   }, {
-    type: ActionType.FILTERED_FILMS_UPDATE
+    type: ActionType.RESET_SHOWED
   })).toEqual({
     genre: `All`,
-    films: filmsExtra,
-    filteredFilms: filmsExtra.slice(0, FILMS_SHOWED_ON_START_AMOUNT + FILMS_SHOWED_INCREMENT_AMOUNT),
-    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT + FILMS_SHOWED_INCREMENT_AMOUNT,
-    promoFilm: films[0]
-  });
-
-  expect(reducer({
-    genre: `Comedy`,
-    films: filmsExtra,
-    filteredFilms: filmsExtra.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
-    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
-    promoFilm: films[0]
-  }, {
-    type: ActionType.FILTERED_FILMS_UPDATE
-  })).toEqual({
-    genre: `Comedy`,
-    films: filmsExtra,
-    filteredFilms: filmsExtra.filter((film) => film.genre === `Comedy`).slice(0, FILMS_SHOWED_ON_START_AMOUNT),
+    films,
     showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
     promoFilm: films[0]
   });
@@ -542,9 +519,9 @@ describe(`Action creators work correctly`, () => {
     });
   });
 
-  it(`Action creator for updating filtered films returns correct action`, () => {
-    expect(ActionCreator.filteredFilmsUpdate()).toEqual({
-      type: ActionType.FILTERED_FILMS_UPDATE
+  it(`Action creator for resetting showed cards number returns correct action`, () => {
+    expect(ActionCreator.resetShowed()).toEqual({
+      type: ActionType.RESET_SHOWED
     });
   });
 });

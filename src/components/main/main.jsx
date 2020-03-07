@@ -14,13 +14,22 @@ const Main = (props) => {
       poster: promoPoster
     },
     films,
-    filteredFilms,
+    showedFilmsAmount,
     genre,
     onTitleClick,
     onCardClick,
     onGenreChange,
     onIncrementShowed
   } = props;
+
+  const filteredFilms = films.filter((film) => {
+    if (genre === `All`) {
+      return true;
+    }
+
+    return film.genre === genre;
+  });
+  const showedFilms = filteredFilms.slice(0, showedFilmsAmount);
 
   return (
     <React.Fragment>
@@ -89,12 +98,12 @@ const Main = (props) => {
           />
 
           <FilmsList
-            films={filteredFilms}
+            films={showedFilms}
             onTitleClick={onTitleClick}
             onCardClick={onCardClick}
           />
 
-          {films.length > filteredFilms.length ?
+          {showedFilms.length < filteredFilms.length ?
             <ShowMoreButton
               onIncrementShowed={onIncrementShowed}
             /> :
@@ -122,7 +131,7 @@ const Main = (props) => {
 Main.propTypes = {
   promoFilm: PropValidator.FILM,
   films: PropValidator.FILMS,
-  filteredFilms: PropValidator.FILMS,
+  showedFilmsAmount: PropValidator.SHOWED_FILMS_AMOUNT,
   genre: PropValidator.GENRE,
   onTitleClick: PropValidator.ON_TITLE_CLICK,
   onCardClick: PropValidator.ON_CARD_CLICK,

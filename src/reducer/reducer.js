@@ -7,25 +7,14 @@ const FILMS_SHOWED_INCREMENT_AMOUNT = 8;
 const initialState = {
   genre: `All`,
   films,
-  filteredFilms: films.slice(0, FILMS_SHOWED_ON_START_AMOUNT),
   showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
   promoFilm: films[0]
-};
-
-const getFilteredFilms = (state) => {
-  return state.films.filter((film) => {
-    if (state.genre === `All`) {
-      return true;
-    }
-
-    return state.genre === film.genre;
-  }).slice(0, state.showedFilmsAmount);
 };
 
 const ActionType = {
   CHANGE_GENRE: `Change genre`,
   INCREMENT_SHOWED: `Increment showed`,
-  FILTERED_FILMS_UPDATE: `Filtered films update`
+  RESET_SHOWED: `Reset showed`
 };
 
 const ActionCreator = {
@@ -37,8 +26,8 @@ const ActionCreator = {
     type: ActionType.INCREMENT_SHOWED,
     payload: FILMS_SHOWED_INCREMENT_AMOUNT
   }),
-  filteredFilmsUpdate: () => ({
-    type: ActionType.FILTERED_FILMS_UPDATE
+  resetShowed: () => ({
+    type: ActionType.RESET_SHOWED
   })
 };
 
@@ -52,9 +41,9 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         showedFilmsAmount: state.showedFilmsAmount + action.payload
       });
-    case ActionType.FILTERED_FILMS_UPDATE:
+    case ActionType.RESET_SHOWED:
       return extend(state, {
-        filteredFilms: getFilteredFilms(state)
+        showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT
       });
   }
 

@@ -451,7 +451,7 @@ it(`Shold Main render correctly when all films are showed`, () => {
     .create(<Main
       promoFilm={promoFilm}
       films={films}
-      filteredFilms={films}
+      showedFilmsAmount={8}
       genre={`All`}
       onTitleClick={() => {}}
       onCardClick={() => {}}
@@ -471,7 +471,7 @@ it(`Shold Main render correctly when not all films are showed`, () => {
     .create(<Main
       promoFilm={promoFilm}
       films={filmsExtra}
-      filteredFilms={films}
+      showedFilmsAmount={8}
       genre={`All`}
       onTitleClick={() => { }}
       onCardClick={() => { }}
