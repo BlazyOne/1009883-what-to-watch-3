@@ -6,14 +6,10 @@ class VideoPlayer extends PureComponent {
     super(props);
 
     this._videoRef = React.createRef();
-
-    this.state = {
-      isPlaying: props.isPlaying
-    };
   }
 
   componentDidMount() {
-    const {src, width, height, poster, muted} = this.props;
+    const {src, width, height, poster, muted, looped, onTimeUpdate, onStopPlaying} = this.props;
     const video = this._videoRef.current;
 
     video.src = src;
@@ -21,25 +17,16 @@ class VideoPlayer extends PureComponent {
     video.height = height;
     video.poster = poster;
     video.muted = muted;
-
-    video.onplay = () => {
-      this.setState({
-        isPlaying: true
-      });
-    };
-
-    video.onpause = () => {
-      this.setState({
-        isPlaying: false
-      });
-    };
+    video.ontimeupdate = () => onTimeUpdate(video.currentTime);
+    if (!looped) {
+      video.onended = () => onStopPlaying();
+    }
   }
 
   componentWillUnmount() {
     const video = this._videoRef.current;
 
-    video.onplay = null;
-    video.onpause = null;
+    video.ontimeupdate = null;
     video.src = ``;
     video.width = ``;
     video.height = ``;
@@ -55,7 +42,7 @@ class VideoPlayer extends PureComponent {
   }
 
   componentDidUpdate() {
-    const {isPlaying, stopOnPause} = this.props;
+    const {isPlaying, stopOnPause, onTimeUpdate} = this.props;
     const video = this._videoRef.current;
 
     if (isPlaying) {
@@ -64,6 +51,7 @@ class VideoPlayer extends PureComponent {
       video.pause();
       if (stopOnPause) {
         video.currentTime = 0;
+        onTimeUpdate(0);
         video.load();
       }
     }
@@ -77,7 +65,10 @@ VideoPlayer.propTypes = {
   height: PropValidator.HEIGHT,
   poster: PropValidator.POSTER,
   muted: PropValidator.MUTED,
-  stopOnPause: PropValidator.STOP_ON_PAUSE
+  looped: PropValidator.LOOPED,
+  stopOnPause: PropValidator.STOP_ON_PAUSE,
+  onTimeUpdate: PropValidator.ON_TIME_UPDATE,
+  onStopPlaying: PropValidator.ON_STOP_PLAYING
 };
 
 export default VideoPlayer;

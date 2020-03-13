@@ -6,22 +6,6 @@ import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx'
 const FilmCardWrapped = withVideoPlayer(FilmCard);
 
 class FilmsList extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeCardId: null
-    };
-
-    this._onMouseOverCard = this._onMouseOverCard.bind(this);
-  }
-
-  _onMouseOverCard(id) {
-    this.setState({
-      activeCardId: id
-    });
-  }
-
   render() {
     const {films, onTitleClick, onCardClick} = this.props;
 
@@ -33,7 +17,6 @@ class FilmsList extends PureComponent {
             film={film}
             onTitleClick={onTitleClick}
             onCardClick={onCardClick}
-            onMouseOverCard={this._onMouseOverCard}
           />
         )}
       </div>

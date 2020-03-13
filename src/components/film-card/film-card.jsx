@@ -6,7 +6,6 @@ const FilmCard = (props) => {
     film: {id, title, cardImage, video: videoSrc},
     onTitleClick,
     onCardClick,
-    onMouseOverCard,
     renderVideoPlayer,
     onStartPlaying,
     onStopPlaying
@@ -19,7 +18,6 @@ const FilmCard = (props) => {
       className="small-movie-card catalog__movies-card"
       id={id}
       onMouseOver={() => {
-        onMouseOverCard(id);
         currentTimer = setTimeout(onStartPlaying, 1000);
       }}
       onMouseOut={() => {
@@ -37,6 +35,7 @@ const FilmCard = (props) => {
           height: `175`,
           poster: cardImage,
           muted: true,
+          looped: true,
           stopOnPause: true
         })}
       </div>
@@ -51,7 +50,6 @@ FilmCard.propTypes = {
   film: PropValidator.FILM,
   onTitleClick: PropValidator.ON_TITLE_CLICK,
   onCardClick: PropValidator.ON_CARD_CLICK,
-  onMouseOverCard: PropValidator.ON_MOUSE_OVER_CARD,
   renderVideoPlayer: PropValidator.RENDER_VIDEO_PLAYER,
   onStartPlaying: PropValidator.ON_START_PLAYING,
   onStopPlaying: PropValidator.ON_STOP_PLAYING

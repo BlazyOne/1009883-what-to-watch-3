@@ -7,7 +7,8 @@ const withVideoPlayer = (Component) => {
       super(props);
 
       this.state = {
-        isPlaying: false
+        isPlaying: false,
+        progress: 0
       };
     }
 
@@ -26,7 +27,15 @@ const withVideoPlayer = (Component) => {
                 height={settings.height}
                 poster={settings.poster}
                 muted={settings.muted}
+                looped={settings.looped}
                 stopOnPause={settings.stopOnPause}
+                onTimeUpdate={(progress) => this.setState({
+                  progress
+                })}
+                onStopPlaying={() => this.setState({
+                  isPlaying: false
+                })
+                }
               />
             );
           }}

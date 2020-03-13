@@ -92,7 +92,6 @@ it(`Should card be clicked`, () => {
         film={film}
         onTitleClick={() => {}}
         onCardClick={onCardClick}
-        onMouseOverCard={() => {}}
         renderVideoPlayer={() => {}}
         onStartPlaying={() => {}}
         onStopPlaying={() => {}}
@@ -103,27 +102,4 @@ it(`Should card be clicked`, () => {
   card.simulate(`click`);
 
   expect(onCardClick).toHaveBeenCalledTimes(1);
-});
-
-it(`The card id passed to callback is right`, () => {
-  const onMouseOverCard = jest.fn();
-
-  const filmCard = shallow(
-      <FilmCard
-        film={film}
-        onTitleClick={() => {}}
-        onCardClick={() => {}}
-        onMouseOverCard={onMouseOverCard}
-        renderVideoPlayer={() => {}}
-        onStartPlaying={() => {}}
-        onStopPlaying={() => {}}
-      />
-  );
-
-  const card = filmCard.find(`.small-movie-card`);
-  card.simulate(`mouseover`);
-
-  expect(onMouseOverCard).toHaveBeenCalledTimes(1);
-
-  expect(onMouseOverCard).toHaveBeenNthCalledWith(1, `film_1`);
 });

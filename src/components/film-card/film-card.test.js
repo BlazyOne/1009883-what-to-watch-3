@@ -63,8 +63,7 @@ it(`Should FilmCard render correctly`, () => {
     .create(<FilmCard
       film={film}
       onTitleClick={() => {}}
-      onCardClick={() => { }}
-      onMouseOverCard={() => {}}
+      onCardClick={() => {}}
       renderVideoPlayer={() => {}}
       onStartPlaying={() => {}}
       onStopPlaying={() => {}}

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should withTabs render correctly 1`] = `
+<ul>
+  <li
+    className="active"
+    onClick={[Function]}
+  >
+    Overview
+  </li>
+  <li
+    className=""
+    onClick={[Function]}
+  >
+    Details
+  </li>
+</ul>
+`;

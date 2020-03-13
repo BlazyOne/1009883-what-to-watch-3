@@ -9,6 +9,7 @@ const mock = {
     height: `175`,
     poster: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     muted: true,
+    looped: true,
     stopOnPause: true
   }
 };
@@ -23,7 +24,10 @@ it(`Should VideoPlayer render correctly`, () => {
     height={video.height}
     poster={video.poster}
     muted={video.muted}
+    looped={video.looped}
     stopOnPause={video.stopOnPause}
+    onTimeUpdate={() => {}}
+    onStopPlaying={() => {}}
   />, {
     createNodeMock: () => {
       return {};
