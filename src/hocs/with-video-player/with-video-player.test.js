@@ -10,7 +10,8 @@ const mockVideoSettings = {
   poster: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   muted: true,
   looped: true,
-  stopOnPause: true
+  stopOnPause: true,
+  videoClass: ``
 };
 
 const MockComponent = (props) => {

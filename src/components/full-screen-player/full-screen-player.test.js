@@ -1,7 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import FilmPageTabs from './film-page-tabs.jsx';
-import {FilmInfoTabTypes} from '../../const.js';
+import FullScreenPlayer from './full-screen-player.jsx';
 
 const film = {
   id: `film_1`,
@@ -60,50 +59,18 @@ In an effort to thwart Grindelwald's plans of raising pure-blood wizards to rule
   ]
 };
 
-it(`Should FilmPageTabs start tab render correctly`, () => {
+it(`Should FullScreenPlayer render correctly`, () => {
   const tree = renderer
-    .create(<FilmPageTabs
+    .create(<FullScreenPlayer
       film={film}
-      currentTab={`start`}
-      onTabChange={() => {}}
-    />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
-
-it(`Should FilmPageTabs overview tab render correctly`, () => {
-  const tree = renderer
-    .create(<FilmPageTabs
-      film={film}
-      currentTab={FilmInfoTabTypes.OVERVIEW}
-      onTabChange={() => {}}
-    />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
-
-it(`Should FilmPageTabs details tab render correctly`, () => {
-  const tree = renderer
-    .create(<FilmPageTabs
-      film={film}
-      currentTab={FilmInfoTabTypes.DETAILS}
-      onTabChange={() => { }}
-    />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
-
-it(`Should FilmPageTabs reviews tab render correctly`, () => {
-  const tree = renderer
-    .create(<FilmPageTabs
-      film={film}
-      currentTab={FilmInfoTabTypes.REVIEWS}
-      onTabChange={() => { }}
-    />)
-    .toJSON();
+      changeScreen={() => {}}
+      isPlaying={false}
+      progress={0}
+      duration={1}
+      renderVideoPlayer={() => {}}
+      onStartPlaying={() => {}}
+      onStopPlaying={() => {}}
+    />).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

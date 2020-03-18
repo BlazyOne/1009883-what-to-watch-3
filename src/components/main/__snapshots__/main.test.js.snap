@@ -102,6 +102,7 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -211,7 +212,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -235,7 +238,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -259,7 +264,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -283,7 +290,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -307,7 +316,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -331,7 +342,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -355,7 +368,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -379,7 +394,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -536,6 +553,7 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -645,7 +663,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -669,7 +689,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -693,7 +715,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -717,7 +741,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -741,7 +767,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -765,7 +793,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -789,7 +819,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"
@@ -813,7 +845,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <video />
+            <video
+              className=""
+            />
           </div>
           <h3
             className="small-movie-card__title"

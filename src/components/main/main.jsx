@@ -7,6 +7,7 @@ import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 const Main = (props) => {
   const {
     promoFilm: {
+      id: promoId,
       title: promoTitle,
       genre: promoGenre,
       year: promoYear,
@@ -17,7 +18,7 @@ const Main = (props) => {
     showedFilmsAmount,
     genre,
     onTitleClick,
-    onCardClick,
+    changeScreen,
     onGenreChange,
     onIncrementShowed
   } = props;
@@ -70,7 +71,13 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  className="btn btn--play movie-card__button"
+                  type="button"
+                  onClick={() => {
+                    changeScreen(`player_` + promoId);
+                  }}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -100,7 +107,7 @@ const Main = (props) => {
           <FilmsList
             films={showedFilms}
             onTitleClick={onTitleClick}
-            onCardClick={onCardClick}
+            changeScreen={changeScreen}
           />
 
           {showedFilms.length < filteredFilms.length ?
@@ -134,7 +141,7 @@ Main.propTypes = {
   showedFilmsAmount: PropValidator.SHOWED_FILMS_AMOUNT,
   genre: PropValidator.GENRE,
   onTitleClick: PropValidator.ON_TITLE_CLICK,
-  onCardClick: PropValidator.ON_CARD_CLICK,
+  changeScreen: PropValidator.CHANGE_SCREEN,
   onGenreChange: PropValidator.ON_GENRE_CHANGE,
   onIncrementShowed: PropValidator.ON_INCREMENT_SHOWED
 };

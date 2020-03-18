@@ -7,6 +7,7 @@ const films = [
     id: `film_1`,
     title: `Fantastic Beasts`,
     cardImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     video: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     backgroundImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Adventure`,
@@ -62,6 +63,7 @@ In an effort to thwart Grindelwald's plans of raising pure-blood wizards to rule
     id: `film_2`,
     title: `Bohemian Rhapsody`,
     cardImage: `img/bohemian-rhapsody.jpg`,
+    videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     video: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     backgroundImage: `img/bohemian-rhapsody.jpg`,
     genre: `Drama`,
@@ -117,6 +119,7 @@ Bohemian Rhapsody is a foot-stomping celebration of Queen, their music and their
     id: `film_3`,
     title: `Macbeth`,
     cardImage: `img/macbeth.jpg`,
+    videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     video: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     backgroundImage: `img/macbeth.jpg`,
     genre: `Drama`,
@@ -171,6 +174,7 @@ Bohemian Rhapsody is a foot-stomping celebration of Queen, their music and their
     id: `film_4`,
     title: `Aviator`,
     cardImage: `img/aviator.jpg`,
+    videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     video: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     backgroundImage: `img/aviator.jpg`,
     genre: `Drama`,
@@ -226,6 +230,7 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
     id: `film_5`,
     title: `We need to talk about Kevin`,
     cardImage: `img/we-need-to-talk-about-kevin.jpg`,
+    videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     video: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     backgroundImage: `img/we-need-to-talk-about-kevin.jpg`,
     genre: `Drama`,
@@ -280,6 +285,7 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
     id: `film_6`,
     title: `What We Do in the Shadows`,
     cardImage: `img/what-we-do-in-the-shadows.jpg`,
+    videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     video: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     backgroundImage: `img/what-we-do-in-the-shadows.jpg`,
     genre: `Comedy`,
@@ -334,6 +340,7 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
     id: `film_7`,
     title: `Revenant`,
     cardImage: `img/revenant.jpg`,
+    videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     video: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     backgroundImage: `img/revenant.jpg`,
     genre: `Adventure`,
@@ -389,6 +396,7 @@ In the untamed and unforgiving wilderness of mid-winter snow-capped Missouri, th
     id: `film_8`,
     title: `Johnny English`,
     cardImage: `img/johnny-english.jpg`,
+    videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     video: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     backgroundImage: `img/johnny-english.jpg`,
     genre: `Comedy`,
@@ -439,7 +447,7 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
         message: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`
       }
     ]
-  },
+  }
 ];
 
 it(`Shold GenresList render correctly`, () => {

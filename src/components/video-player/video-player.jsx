@@ -9,7 +9,7 @@ class VideoPlayer extends PureComponent {
   }
 
   componentDidMount() {
-    const {src, width, height, poster, muted, looped, onTimeUpdate, onStopPlaying} = this.props;
+    const {src, width, height, poster, muted, looped, onTimeUpdate, onStopPlaying, setVideoDuration} = this.props;
     const video = this._videoRef.current;
 
     video.src = src;
@@ -17,9 +17,14 @@ class VideoPlayer extends PureComponent {
     video.height = height;
     video.poster = poster;
     video.muted = muted;
+    video.oncanplay = () => setVideoDuration(video.duration);
     video.ontimeupdate = () => onTimeUpdate(video.currentTime);
     if (!looped) {
-      video.onended = () => onStopPlaying();
+      video.onended = () => {
+        onStopPlaying();
+        video.load();
+        onTimeUpdate(0);
+      };
     }
   }
 
@@ -34,9 +39,12 @@ class VideoPlayer extends PureComponent {
   }
 
   render() {
+    const {videoClass} = this.props;
+
     return (
       <video
         ref={this._videoRef}
+        className={videoClass}
       />
     );
   }
@@ -67,8 +75,10 @@ VideoPlayer.propTypes = {
   muted: PropValidator.MUTED,
   looped: PropValidator.LOOPED,
   stopOnPause: PropValidator.STOP_ON_PAUSE,
+  videoClass: PropValidator.CLASS,
   onTimeUpdate: PropValidator.ON_TIME_UPDATE,
-  onStopPlaying: PropValidator.ON_STOP_PLAYING
+  onStopPlaying: PropValidator.ON_STOP_PLAYING,
+  setVideoDuration: PropValidator.SET_VIDEO_DURATION
 };
 
 export default VideoPlayer;

@@ -13,7 +13,7 @@ const FilmPage = (props) => {
     film: {id, backgroundImage, title, genre, year, poster},
     films,
     onTitleClick,
-    onCardClick
+    changeScreen
   } = props;
 
   const similarFilms = films.filter((film) => film.genre === genre && film.id !== id).slice(0, SIMILAR_FILMS_AMOUNT);
@@ -53,7 +53,13 @@ const FilmPage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  className="btn btn--play movie-card__button"
+                  type="button"
+                  onClick={() => {
+                    changeScreen(`player_` + id);
+                  }}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -92,7 +98,7 @@ const FilmPage = (props) => {
           <FilmsList
             films={similarFilms}
             onTitleClick={onTitleClick}
-            onCardClick={onCardClick}
+            changeScreen={changeScreen}
           />
         </section>
 
@@ -118,7 +124,7 @@ FilmPage.propTypes = {
   film: PropValidator.FILM,
   films: PropValidator.FILMS,
   onTitleClick: PropValidator.ON_TITLE_CLICK,
-  onCardClick: PropValidator.ON_CARD_CLICK
+  changeScreen: PropValidator.CHANGE_SCREEN
 };
 
 export default FilmPage;

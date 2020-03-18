@@ -4,6 +4,7 @@ const FILM = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
+  videoPreview: PropTypes.string.isRequired,
   video: PropTypes.string.isRequired,
   backgroundImage: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
@@ -29,7 +30,7 @@ const PropValidator = {
   ),
   FILM: PropTypes.exact(FILM),
   ON_TITLE_CLICK: PropTypes.func.isRequired,
-  ON_CARD_CLICK: PropTypes.func.isRequired,
+  CHANGE_SCREEN: PropTypes.func.isRequired,
   IS_PLAYING: PropTypes.bool.isRequired,
   SRC: PropTypes.string.isRequired,
   WIDTH: PropTypes.string.isRequired,
@@ -47,7 +48,11 @@ const PropValidator = {
   ON_GENRE_CHANGE: PropTypes.func.isRequired,
   ON_INCREMENT_SHOWED: PropTypes.func.isRequired,
   SHOWED_FILMS_AMOUNT: PropTypes.number.isRequired,
-  ON_TIME_UPDATE: PropTypes.func.isRequired
+  ON_TIME_UPDATE: PropTypes.func.isRequired,
+  CLASS: PropTypes.string.isRequired,
+  PROGRESS: PropTypes.number.isRequired,
+  DURATION: PropTypes.number.isRequired,
+  SET_VIDEO_DURATION: PropTypes.func.isRequired
 };
 
 export {PropValidator};

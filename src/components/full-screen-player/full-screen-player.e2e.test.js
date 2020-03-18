@@ -1,7 +1,7 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import FilmPageTabs from './film-page-tabs.jsx';
-import {FilmInfoTabTypes} from '../../const.js';
+import Enzyme, {shallow} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import FullScreenPlayer from './full-screen-player.jsx';
 
 const film = {
   id: `film_1`,
@@ -60,50 +60,69 @@ In an effort to thwart Grindelwald's plans of raising pure-blood wizards to rule
   ]
 };
 
-it(`Should FilmPageTabs start tab render correctly`, () => {
-  const tree = renderer
-    .create(<FilmPageTabs
-      film={film}
-      currentTab={`start`}
-      onTabChange={() => {}}
-    />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
+Enzyme.configure({
+  adapter: new Adapter()
 });
 
-it(`Should FilmPageTabs overview tab render correctly`, () => {
-  const tree = renderer
-    .create(<FilmPageTabs
-      film={film}
-      currentTab={FilmInfoTabTypes.OVERVIEW}
-      onTabChange={() => {}}
-    />)
-    .toJSON();
+it(`Should play/pause button be clicked when video is playing`, () => {
+  const onStopPlaying = jest.fn();
 
-  expect(tree).toMatchSnapshot();
+  const fullScreenPlayer = shallow(
+      <FullScreenPlayer
+        film={film}
+        changeScreen={() => {}}
+        isPlaying={true}
+        progress={0}
+        duration={1}
+        renderVideoPlayer={() => {}}
+        onStartPlaying={() => {}}
+        onStopPlaying={onStopPlaying}
+      />
+  );
+
+  const playPauseButton = fullScreenPlayer.find(`button.player__play`);
+  playPauseButton.simulate(`click`);
+  expect(onStopPlaying).toHaveBeenCalledTimes(1);
 });
 
-it(`Should FilmPageTabs details tab render correctly`, () => {
-  const tree = renderer
-    .create(<FilmPageTabs
-      film={film}
-      currentTab={FilmInfoTabTypes.DETAILS}
-      onTabChange={() => { }}
-    />)
-    .toJSON();
+it(`Should play/pause button be clicked when video is not playing`, () => {
+  const onStartPlaying = jest.fn();
 
-  expect(tree).toMatchSnapshot();
+  const fullScreenPlayer = shallow(
+      <FullScreenPlayer
+        film={film}
+        changeScreen={() => {}}
+        isPlaying={false}
+        progress={0}
+        duration={1}
+        renderVideoPlayer={() => {}}
+        onStartPlaying={onStartPlaying}
+        onStopPlaying={() => {}}
+      />
+  );
+
+  const playPauseButton = fullScreenPlayer.find(`button.player__play`);
+  playPauseButton.simulate(`click`);
+  expect(onStartPlaying).toHaveBeenCalledTimes(1);
 });
 
-it(`Should FilmPageTabs reviews tab render correctly`, () => {
-  const tree = renderer
-    .create(<FilmPageTabs
-      film={film}
-      currentTab={FilmInfoTabTypes.REVIEWS}
-      onTabChange={() => { }}
-    />)
-    .toJSON();
+it(`Should exit button be clicked`, () => {
+  const changeScreen = jest.fn();
 
-  expect(tree).toMatchSnapshot();
+  const fullScreenPlayer = shallow(
+      <FullScreenPlayer
+        film={film}
+        changeScreen={changeScreen}
+        isPlaying={false}
+        progress={0}
+        duration={1}
+        renderVideoPlayer={() => {}}
+        onStartPlaying={() => {}}
+        onStopPlaying={() => {}}
+      />
+  );
+
+  const exitButton = fullScreenPlayer.find(`button.player__exit`);
+  exitButton.simulate(`click`);
+  expect(changeScreen).toHaveBeenCalledTimes(1);
 });

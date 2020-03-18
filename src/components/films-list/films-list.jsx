@@ -7,7 +7,7 @@ const FilmCardWrapped = withVideoPlayer(FilmCard);
 
 class FilmsList extends PureComponent {
   render() {
-    const {films, onTitleClick, onCardClick} = this.props;
+    const {films, onTitleClick, changeScreen} = this.props;
 
     return (
       <div className="catalog__movies-list">
@@ -16,7 +16,7 @@ class FilmsList extends PureComponent {
             key={`films_` + film.title + index}
             film={film}
             onTitleClick={onTitleClick}
-            onCardClick={onCardClick}
+            changeScreen={changeScreen}
           />
         )}
       </div>
@@ -27,7 +27,7 @@ class FilmsList extends PureComponent {
 FilmsList.propTypes = {
   films: PropValidator.FILMS,
   onTitleClick: PropValidator.ON_TITLE_CLICK,
-  onCardClick: PropValidator.ON_CARD_CLICK
+  changeScreen: PropValidator.CHANGE_SCREEN
 };
 
 export default FilmsList;

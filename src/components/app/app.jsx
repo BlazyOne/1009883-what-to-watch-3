@@ -4,7 +4,11 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/reducer.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
+import FullScreenPlayer from '../full-screen-player/full-screen-player.jsx';
+import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
 import {PropValidator} from '../../prop-validator/prop-validator.js';
+
+const FullScreenPlayerWrapped = withVideoPlayer(FullScreenPlayer);
 
 class App extends PureComponent {
   constructor(props) {
@@ -29,9 +33,9 @@ class App extends PureComponent {
           onTitleClick={(evt) => {
             evt.preventDefault();
           }}
-          onCardClick={(filmId) => {
+          changeScreen={(newScreen) => {
             this.setState(() => ({
-              screen: filmId,
+              screen: newScreen,
             }));
           }}
           onGenreChange={onGenreChange}
@@ -49,13 +53,29 @@ class App extends PureComponent {
           onTitleClick={(evt) => {
             evt.preventDefault();
           }}
-          onCardClick={(filmId) => {
+          changeScreen={(newScreen) => {
             this.setState(() => ({
-              screen: filmId,
+              screen: newScreen,
             }));
           }}
         />
       );
+    }
+
+    if (screen.substring(0, 7) === `player_`) {
+      const index = films.findIndex((film) => film.id === screen.substring(7));
+      if (index > -1) {
+        return (
+          <FullScreenPlayerWrapped
+            film={films[index]}
+            changeScreen={(newScreen) => {
+              this.setState(() => ({
+                screen: newScreen,
+              }));
+            }}
+          />
+        );
+      }
     }
 
     return null;
@@ -75,9 +95,19 @@ class App extends PureComponent {
               onTitleClick={(evt) => {
                 evt.preventDefault();
               }}
-              onCardClick={(filmId) => {
+              changeScreen={(newScreen) => {
                 this.setState(() => ({
-                  screen: filmId,
+                  screen: newScreen,
+                }));
+              }}
+            />
+          </Route>
+          <Route exact path="/dev-full-screen-player">
+            <FullScreenPlayerWrapped
+              film={this.props.films[0]}
+              changeScreen={(newScreen) => {
+                this.setState(() => ({
+                  screen: newScreen,
                 }));
               }}
             />

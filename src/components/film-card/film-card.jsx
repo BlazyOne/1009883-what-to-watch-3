@@ -3,9 +3,9 @@ import {PropValidator} from '../../prop-validator/prop-validator.js';
 
 const FilmCard = (props) => {
   const {
-    film: {id, title, cardImage, video: videoSrc},
+    film: {id, title, cardImage, videoPreview: videoSrc},
     onTitleClick,
-    onCardClick,
+    changeScreen,
     renderVideoPlayer,
     onStartPlaying,
     onStopPlaying
@@ -26,7 +26,7 @@ const FilmCard = (props) => {
       }}
       onClick={() => {
         clearTimeout(currentTimer);
-        onCardClick(id);
+        changeScreen(id);
       }}>
       <div className="small-movie-card__image">
         {renderVideoPlayer({
@@ -36,7 +36,8 @@ const FilmCard = (props) => {
           poster: cardImage,
           muted: true,
           looped: true,
-          stopOnPause: true
+          stopOnPause: true,
+          videoClass: ``
         })}
       </div>
       <h3 className="small-movie-card__title" onClick={onTitleClick}>
@@ -49,7 +50,7 @@ const FilmCard = (props) => {
 FilmCard.propTypes = {
   film: PropValidator.FILM,
   onTitleClick: PropValidator.ON_TITLE_CLICK,
-  onCardClick: PropValidator.ON_CARD_CLICK,
+  changeScreen: PropValidator.CHANGE_SCREEN,
   renderVideoPlayer: PropValidator.RENDER_VIDEO_PLAYER,
   onStartPlaying: PropValidator.ON_START_PLAYING,
   onStopPlaying: PropValidator.ON_STOP_PLAYING

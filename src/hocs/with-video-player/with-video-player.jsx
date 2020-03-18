@@ -8,16 +8,20 @@ const withVideoPlayer = (Component) => {
 
       this.state = {
         isPlaying: false,
-        progress: 0
+        progress: 0,
+        duration: 0
       };
     }
 
     render() {
-      const {isPlaying} = this.state;
+      const {isPlaying, progress, duration} = this.state;
 
       return (
         <Component
           {...this.props}
+          isPlaying={isPlaying}
+          progress={progress}
+          duration={duration}
           renderVideoPlayer={(settings) => {
             return (
               <VideoPlayer
@@ -29,13 +33,22 @@ const withVideoPlayer = (Component) => {
                 muted={settings.muted}
                 looped={settings.looped}
                 stopOnPause={settings.stopOnPause}
-                onTimeUpdate={(progress) => this.setState({
-                  progress
-                })}
+                videoClass={settings.videoClass}
+                onTimeUpdate={(currentTime) => {
+                  if (currentTime !== this.state.progress) {
+                    this.setState({
+                      progress: currentTime
+                    });
+                  }
+                }}
                 onStopPlaying={() => this.setState({
                   isPlaying: false
-                })
-                }
+                })}
+                setVideoDuration={(durationTime) => {
+                  this.setState({
+                    duration: durationTime
+                  });
+                }}
               />
             );
           }}

@@ -6,6 +6,7 @@ const film = {
   id: `film_1`,
   title: `Fantastic Beasts`,
   cardImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+  videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   video: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   backgroundImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   genre: `Adventure`,
@@ -63,7 +64,7 @@ it(`Should FilmCard render correctly`, () => {
     .create(<FilmCard
       film={film}
       onTitleClick={() => {}}
-      onCardClick={() => {}}
+      changeScreen={() => {}}
       renderVideoPlayer={() => {}}
       onStartPlaying={() => {}}
       onStopPlaying={() => {}}

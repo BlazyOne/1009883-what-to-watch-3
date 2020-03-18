@@ -26,8 +26,10 @@ it(`Should VideoPlayer render correctly`, () => {
     muted={video.muted}
     looped={video.looped}
     stopOnPause={video.stopOnPause}
+    videoClass={``}
     onTimeUpdate={() => {}}
     onStopPlaying={() => {}}
+    setVideoDuration={() => {}}
   />, {
     createNodeMock: () => {
       return {};
