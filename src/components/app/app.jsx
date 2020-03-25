@@ -1,12 +1,17 @@
 import React, {PureComponent} from 'react';
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer/reducer.js';
+import {ActionCreator} from '../../reducer/view-state/viewState.js';
+import {Operation as UserOperation} from '../../reducer/user/user.js';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
 import Main from '../main/main.jsx';
 import FilmPage from '../film-page/film-page.jsx';
 import FullScreenPlayer from '../full-screen-player/full-screen-player.jsx';
 import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
 import {PropValidator} from '../../prop-validator/prop-validator.js';
+import {getGenre, getShowedFilmsAmount} from '../../reducer/view-state/selectors.js';
+import {getFilms, getPromoFlm} from '../../reducer/data/selectors.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 
 const FullScreenPlayerWrapped = withVideoPlayer(FullScreenPlayer);
 
@@ -20,7 +25,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {promoFilm, films, showedFilmsAmount, genre, onGenreChange, onIncrementShowed} = this.props;
+    const {promoFilm, films, showedFilmsAmount, genre, onGenreChange, onIncrementShowed, loadReviewsToFilm} = this.props;
     const {screen} = this.state;
 
     if (screen === `main`) {
@@ -37,6 +42,10 @@ class App extends PureComponent {
             this.setState(() => ({
               screen: newScreen,
             }));
+
+            if (newScreen.substring(0, 5) === `film_`) {
+              loadReviewsToFilm(newScreen);
+            }
           }}
           onGenreChange={onGenreChange}
           onIncrementShowed={onIncrementShowed}
@@ -57,6 +66,10 @@ class App extends PureComponent {
             this.setState(() => ({
               screen: newScreen,
             }));
+
+            if (newScreen.substring(0, 5) === `film_`) {
+              loadReviewsToFilm(newScreen);
+            }
           }}
         />
       );
@@ -72,6 +85,10 @@ class App extends PureComponent {
               this.setState(() => ({
                 screen: newScreen,
               }));
+
+              if (newScreen.substring(0, 5) === `film_`) {
+                loadReviewsToFilm(newScreen);
+              }
             }}
           />
         );
@@ -119,28 +136,38 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
+  authorizationStatus: PropValidator.AUTHORIZATION_STATUS,
+  login: PropValidator.LOGIN,
   promoFilm: PropValidator.FILM,
   films: PropValidator.FILMS,
   showedFilmsAmount: PropValidator.SHOWED_FILMS_AMOUNT,
   genre: PropValidator.GENRE,
   onGenreChange: PropValidator.ON_GENRE_CHANGE,
-  onIncrementShowed: PropValidator.ON_INCREMENT_SHOWED
+  onIncrementShowed: PropValidator.ON_INCREMENT_SHOWED,
+  loadReviewsToFilm: PropValidator.LOAD_REVIEWS_TO_FILM
 };
 
 const mapStateToProps = (state) => ({
-  promoFilm: state.promoFilm,
-  films: state.films,
-  genre: state.genre,
-  showedFilmsAmount: state.showedFilmsAmount
+  authorizationStatus: getAuthorizationStatus(state),
+  promoFilm: getPromoFlm(state),
+  films: getFilms(state),
+  genre: getGenre(state),
+  showedFilmsAmount: getShowedFilmsAmount(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
   onGenreChange(genre) {
     dispatch(ActionCreator.changeGenre(genre));
     dispatch(ActionCreator.resetShowed());
   },
   onIncrementShowed() {
     dispatch(ActionCreator.incrementShowed());
+  },
+  loadReviewsToFilm(filmId) {
+    dispatch(DataOperation.loadReviewsToFilm(filmId));
   }
 });
 

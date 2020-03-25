@@ -1,10 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {App} from './app.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const films = [
   {
     id: `film_1`,
+    isFavorite: false,
     title: `Fantastic Beasts`,
     cardImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -61,6 +63,7 @@ In an effort to thwart Grindelwald's plans of raising pure-blood wizards to rule
   },
   {
     id: `film_2`,
+    isFavorite: true,
     title: `Bohemian Rhapsody`,
     cardImage: `img/bohemian-rhapsody.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -117,6 +120,7 @@ Bohemian Rhapsody is a foot-stomping celebration of Queen, their music and their
   },
   {
     id: `film_3`,
+    isFavorite: false,
     title: `Macbeth`,
     cardImage: `img/macbeth.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -172,6 +176,7 @@ Bohemian Rhapsody is a foot-stomping celebration of Queen, their music and their
   },
   {
     id: `film_4`,
+    isFavorite: false,
     title: `Aviator`,
     cardImage: `img/aviator.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -228,6 +233,7 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
   },
   {
     id: `film_5`,
+    isFavorite: false,
     title: `We need to talk about Kevin`,
     cardImage: `img/we-need-to-talk-about-kevin.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -283,6 +289,7 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
   },
   {
     id: `film_6`,
+    isFavorite: false,
     title: `What We Do in the Shadows`,
     cardImage: `img/what-we-do-in-the-shadows.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -338,6 +345,7 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
   },
   {
     id: `film_7`,
+    isFavorite: false,
     title: `Revenant`,
     cardImage: `img/revenant.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -394,6 +402,7 @@ In the untamed and unforgiving wilderness of mid-winter snow-capped Missouri, th
   },
   {
     id: `film_8`,
+    isFavorite: false,
     title: `Johnny English`,
     cardImage: `img/johnny-english.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -455,12 +464,15 @@ const promoFilm = films[0];
 it(`Should App render correctly`, () => {
   const tree = renderer
     .create(<App
+      authorizationStatus={AuthorizationStatus.NO_AUTH}
+      login={() => {}}
       promoFilm={promoFilm}
       films={films}
       showedFilmsAmount={8}
       genre={`All`}
       onGenreChange={() => {}}
       onIncrementShowed={() => {}}
+      loadReviewsToFilm={() => {}}
     />, {
       createNodeMock: () => {
         return {};

@@ -1,8 +1,13 @@
-import {reducer, ActionCreator, ActionType} from './reducer.js';
+import MockAdapter from 'axios-mock-adapter';
+import {createAPI} from '../../api.js';
+import {reducer, ActionType, ActionCreator, Operation} from './data.js';
+
+const api = createAPI(() => {});
 
 const films = [
   {
     id: `film_1`,
+    isFavorite: false,
     title: `Fantastic Beasts`,
     cardImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -59,6 +64,7 @@ In an effort to thwart Grindelwald's plans of raising pure-blood wizards to rule
   },
   {
     id: `film_2`,
+    isFavorite: true,
     title: `Bohemian Rhapsody`,
     cardImage: `img/bohemian-rhapsody.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -115,6 +121,7 @@ Bohemian Rhapsody is a foot-stomping celebration of Queen, their music and their
   },
   {
     id: `film_3`,
+    isFavorite: false,
     title: `Macbeth`,
     cardImage: `img/macbeth.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -170,6 +177,7 @@ Bohemian Rhapsody is a foot-stomping celebration of Queen, their music and their
   },
   {
     id: `film_4`,
+    isFavorite: false,
     title: `Aviator`,
     cardImage: `img/aviator.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -226,6 +234,7 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
   },
   {
     id: `film_5`,
+    isFavorite: false,
     title: `We need to talk about Kevin`,
     cardImage: `img/we-need-to-talk-about-kevin.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -281,6 +290,7 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
   },
   {
     id: `film_6`,
+    isFavorite: false,
     title: `What We Do in the Shadows`,
     cardImage: `img/what-we-do-in-the-shadows.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -336,6 +346,7 @@ Biopic of billionaire Howard Hughes, starting with his early filmmaking years as
   },
   {
     id: `film_7`,
+    isFavorite: false,
     title: `Revenant`,
     cardImage: `img/revenant.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -392,6 +403,7 @@ In the untamed and unforgiving wilderness of mid-winter snow-capped Missouri, th
   },
   {
     id: `film_8`,
+    isFavorite: false,
     title: `Johnny English`,
     cardImage: `img/johnny-english.jpg`,
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -448,88 +460,111 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
   }
 ];
 
-const filmsExtra = films.concat(Object.assign({}, films[0], {id: `film_9`}), Object.assign({}, films[1], {id: `film_10`}));
-
-const FILMS_SHOWED_ON_START_AMOUNT = 8;
-const FILMS_SHOWED_INCREMENT_AMOUNT = 8;
+const filmUndefined = {
+  backgroundImage: undefined,
+  cardImage: undefined,
+  description: undefined,
+  director: undefined,
+  genre: undefined,
+  id: `film_undefined`,
+  isFavorite: undefined,
+  poster: undefined,
+  ratingCount: `undefined ratings`,
+  ratingScore: `undefined`,
+  reviews: [],
+  runTime: `NaNh NaNm`,
+  starring: undefined,
+  title: undefined,
+  video: undefined,
+  videoPreview: undefined,
+  year: `undefined`,
+};
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    genre: `All`,
-    films: filmsExtra,
-    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
-    promoFilm: films[0]
+    films: [],
+    promoFilm: {}
   });
 });
 
-it(`Reducer should change genre to a given value`, () => {
+it(`Reducer should update films by load films`, () => {
   expect(reducer({
-    genre: `All`,
-    films,
-    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
-    promoFilm: films[0]
+    films: [],
+    promoFilm: {}
   }, {
-    type: ActionType.CHANGE_GENRE,
-    payload: `Comedy`
+    type: ActionType.LOAD_FILMS,
+    payload: films,
   })).toEqual({
-    genre: `Comedy`,
     films,
-    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
-    promoFilm: films[0]
+    promoFilm: {}
   });
 });
 
-it(`Reducer should increment showed cards by a given value`, () => {
+it(`Reducer should update promoFilm by load promoFilm`, () => {
   expect(reducer({
-    genre: `All`,
-    films,
-    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
-    promoFilm: films[0]
+    films: [],
+    promoFilm: {}
   }, {
-    type: ActionType.INCREMENT_SHOWED,
-    payload: FILMS_SHOWED_INCREMENT_AMOUNT
+    type: ActionType.LOAD_PROMO_FILM,
+    payload: films[0],
   })).toEqual({
-    genre: `All`,
-    films,
-    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT + FILMS_SHOWED_INCREMENT_AMOUNT,
-    promoFilm: films[0]
-  });
-});
-
-it(`Reducer should reset showed cards number to a correct value`, () => {
-  expect(reducer({
-    genre: `All`,
-    films,
-    showedFilmsAmount: 16,
-    promoFilm: films[0]
-  }, {
-    type: ActionType.RESET_SHOWED
-  })).toEqual({
-    genre: `All`,
-    films,
-    showedFilmsAmount: FILMS_SHOWED_ON_START_AMOUNT,
+    films: [],
     promoFilm: films[0]
   });
 });
 
 describe(`Action creators work correctly`, () => {
-  it(`Action creator for setting genre retuns correct action`, () => {
-    expect(ActionCreator.changeGenre(`Comedy`)).toEqual({
-      type: ActionType.CHANGE_GENRE,
-      payload: `Comedy`
+  it(`Action creator for load films returns correct action`, () => {
+    expect(ActionCreator.loadFilms(films)).toEqual({
+      type: ActionType.LOAD_FILMS,
+      payload: films,
     });
   });
 
-  it(`Action creator for incrementing showed cards returns correct action`, () => {
-    expect(ActionCreator.incrementShowed()).toEqual({
-      type: ActionType.INCREMENT_SHOWED,
-      payload: FILMS_SHOWED_INCREMENT_AMOUNT
+  it(`Action creator for load promoFilm returns correct action`, () => {
+    expect(ActionCreator.loadPromoFilm(films[0])).toEqual({
+      type: ActionType.LOAD_PROMO_FILM,
+      payload: films[0],
     });
   });
+});
 
-  it(`Action creator for resetting showed cards number returns correct action`, () => {
-    expect(ActionCreator.resetShowed()).toEqual({
-      type: ActionType.RESET_SHOWED
-    });
+describe(`Operation work correctly`, () => {
+  it(`Should make a correct API call to /films`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const filmsLoader = Operation.loadFilms();
+
+    apiMock
+      .onGet(`/films`)
+      .reply(200, [{fake: true}]);
+
+    return filmsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_FILMS,
+          payload: [filmUndefined],
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /films/promo`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const promoFilmLoader = Operation.loadPromoFilm();
+
+    apiMock
+      .onGet(`/films/promo`)
+      .reply(200, {fake: true});
+
+    return promoFilmLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_PROMO_FILM,
+          payload: filmUndefined,
+        });
+      });
   });
 });

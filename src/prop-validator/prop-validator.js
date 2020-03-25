@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 const FILM = {
   id: PropTypes.string.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   videoPreview: PropTypes.string.isRequired,
@@ -52,7 +53,10 @@ const PropValidator = {
   CLASS: PropTypes.string.isRequired,
   PROGRESS: PropTypes.number.isRequired,
   DURATION: PropTypes.number.isRequired,
-  SET_VIDEO_DURATION: PropTypes.func.isRequired
+  SET_VIDEO_DURATION: PropTypes.func.isRequired,
+  AUTHORIZATION_STATUS: PropTypes.string.isRequired,
+  LOGIN: PropTypes.func.isRequired,
+  LOAD_REVIEWS_TO_FILM: PropTypes.func.isRequired
 };
 
 export {PropValidator};
