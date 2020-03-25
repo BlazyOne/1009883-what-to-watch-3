@@ -23,7 +23,7 @@ const transformFilmFromServerToClient = (data) => {
 const transformReviewFromServerToClient = (data) => {
   return {
     author: data.user.name,
-    date: new Intl.DateTimeFormat(`en-US`, {month: `long`}).format(new Date(data.date)),
+    date: new Intl.DateTimeFormat(`en-US`, {month: `long`, day: `numeric`, year: `numeric`}).format(new Date(data.date)),
     reviewRating: `${data.rating}`.replace(`.`, `,`),
     message: data.comment
   };
