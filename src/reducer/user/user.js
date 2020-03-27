@@ -1,3 +1,6 @@
+import {transformAuthInfoFromServerToClient} from '../../adapter.js';
+import {Operation as DataOperation} from '../data/data.js';
+
 const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
@@ -5,24 +8,38 @@ const AuthorizationStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authInfo: {}
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  LOAD_AUTH_INFO: `LOAD_AUTH_INFO`
 };
 
 const ActionCreator = {
   requireAuthorization: (status) => {
     return {
       type: ActionType.REQUIRED_AUTHORIZATION,
-      payload: status,
+      payload: status
     };
   },
+  loadAuthInfo: (authInfo) => {
+    return {
+      type: ActionType.LOAD_AUTH_INFO,
+      payload: authInfo
+    };
+  }
 };
 
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return api.get(`/login`)
+      .then((response) => {
+        return transformAuthInfoFromServerToClient(response.data);
+      })
+      .then((data) => {
+        dispatch(ActionCreator.loadAuthInfo(data));
+      })
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       })
@@ -36,8 +53,16 @@ const Operation = {
       email: authData.login,
       password: authData.password,
     })
-      .then(() => {
+      .then((response) => {
+        return transformAuthInfoFromServerToClient(response.data);
+      })
+      .then((data) => {
+        dispatch(ActionCreator.loadAuthInfo(data));
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      })
+      .then(() => {
+        dispatch(DataOperation.loadFilms());
+        dispatch(DataOperation.loadPromoFilm());
       });
   },
 };
@@ -47,6 +72,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQUIRED_AUTHORIZATION:
       return Object.assign({}, state, {
         authorizationStatus: action.payload,
+      });
+    case ActionType.LOAD_AUTH_INFO:
+      return Object.assign({}, state, {
+        authInfo: action.payload,
       });
   }
 

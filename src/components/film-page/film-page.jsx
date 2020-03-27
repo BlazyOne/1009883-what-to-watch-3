@@ -3,6 +3,7 @@ import {PropValidator} from '../../prop-validator/prop-validator.js';
 import FilmPageTabs from '../film-page-tabs/film-page-tabs.jsx';
 import FilmsList from '../films-list/films-list.jsx';
 import withTabs from '../../hocs/with-tabs/with-tabs.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const SIMILAR_FILMS_AMOUNT = 4;
 
@@ -10,6 +11,8 @@ const FilmPageTabsWrapped = withTabs(FilmPageTabs);
 
 const FilmPage = (props) => {
   const {
+    authorizationStatus,
+    authInfo,
     film: {id, backgroundImage, title, genre, year, poster},
     films,
     onTitleClick,
@@ -38,9 +41,22 @@ const FilmPage = (props) => {
             </div>
 
             <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
+              {authorizationStatus === AuthorizationStatus.AUTH ?
+                <div className="user-block__avatar">
+                  <img
+                    src={`https://htmlacademy-react-3.appspot.com/${authInfo.avatarUrl}`}
+                    alt="User avatar"
+                    width="63"
+                    height="63"
+                  />
+                </div> :
+                <a
+                  href="#"
+                  className="user-block__link"
+                  onClick={() => {
+                    changeScreen(`signIn`);
+                  }}
+                >Sign in</a>}
             </div>
           </header>
 
@@ -121,6 +137,8 @@ const FilmPage = (props) => {
 };
 
 FilmPage.propTypes = {
+  authorizationStatus: PropValidator.AUTHORIZATION_STATUS,
+  authInfo: PropValidator.AUTH_INFO,
   film: PropValidator.FILM,
   films: PropValidator.FILMS,
   onTitleClick: PropValidator.ON_TITLE_CLICK,

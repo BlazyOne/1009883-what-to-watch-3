@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Main from './main.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const films = [
   {
@@ -462,9 +463,16 @@ const filmsExtra = films.concat(films[0]);
 
 const promoFilm = films[0];
 
-it(`Shold Main render correctly when all films are showed`, () => {
+it(`Shold Main render correctly when all films are showed and user is not signed in`, () => {
   const tree = renderer
     .create(<Main
+      authorizationStatus={AuthorizationStatus.NO_AUTH}
+      authInfo={{
+        id: 1,
+        email: `a@a.a`,
+        name: `a`,
+        avatarUrl: `img/avatar.jpg`
+      }}
       promoFilm={promoFilm}
       films={films}
       showedFilmsAmount={8}
@@ -482,9 +490,16 @@ it(`Shold Main render correctly when all films are showed`, () => {
   expect(tree).toMatchSnapshot();
 });
 
-it(`Shold Main render correctly when not all films are showed`, () => {
+it(`Shold Main render correctly when not all films are showed and user is signed in`, () => {
   const tree = renderer
     .create(<Main
+      authorizationStatus={AuthorizationStatus.AUTH}
+      authInfo={{
+        id: 1,
+        email: `a@a.a`,
+        name: `a`,
+        avatarUrl: `img/avatar.jpg`
+      }}
       promoFilm={promoFilm}
       films={filmsExtra}
       showedFilmsAmount={8}

@@ -3,9 +3,12 @@ import {PropValidator} from '../../prop-validator/prop-validator.js';
 import GenresList from '../genres-list/genres-list.jsx';
 import FilmsList from '../films-list/films-list.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const Main = (props) => {
   const {
+    authorizationStatus,
+    authInfo,
     promoFilm: {
       id: promoId,
       title: promoTitle,
@@ -51,9 +54,22 @@ const Main = (props) => {
           </div>
 
           <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
+            {authorizationStatus === AuthorizationStatus.AUTH ?
+              <div className="user-block__avatar">
+                <img
+                  src={`https://htmlacademy-react-3.appspot.com/${authInfo.avatarUrl}`}
+                  alt="User avatar"
+                  width="63"
+                  height="63"
+                />
+              </div> :
+              <a
+                href="#"
+                className="user-block__link"
+                onClick={() => {
+                  changeScreen(`signIn`);
+                }}
+              >Sign in</a>}
           </div>
         </header>
 
@@ -136,6 +152,8 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
+  authorizationStatus: PropValidator.AUTHORIZATION_STATUS,
+  authInfo: PropValidator.AUTH_INFO,
   promoFilm: PropValidator.FILM,
   films: PropValidator.FILMS,
   showedFilmsAmount: PropValidator.SHOWED_FILMS_AMOUNT,

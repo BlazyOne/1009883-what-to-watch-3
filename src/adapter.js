@@ -29,4 +29,13 @@ const transformReviewFromServerToClient = (data) => {
   };
 };
 
-export {transformFilmFromServerToClient, transformReviewFromServerToClient};
+const transformAuthInfoFromServerToClient = (data) => {
+  return {
+    id: data.id,
+    email: data.email,
+    name: data.name,
+    avatarUrl: data.avatar_url
+  };
+};
+
+export {transformFilmFromServerToClient, transformReviewFromServerToClient, transformAuthInfoFromServerToClient};

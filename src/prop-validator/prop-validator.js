@@ -56,7 +56,14 @@ const PropValidator = {
   SET_VIDEO_DURATION: PropTypes.func.isRequired,
   AUTHORIZATION_STATUS: PropTypes.string.isRequired,
   LOGIN: PropTypes.func.isRequired,
-  LOAD_REVIEWS_TO_FILM: PropTypes.func.isRequired
+  LOAD_REVIEWS_TO_FILM: PropTypes.func.isRequired,
+  ON_SUBMIT: PropTypes.func.isRequired,
+  AUTH_INFO: PropTypes.exact({
+    id: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    avatarUrl: PropTypes.string.isRequired
+  })
 };
 
 export {PropValidator};

@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import FilmPage from './film-page.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const films = [
   {
@@ -461,6 +462,13 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
 it(`Should FilmPage render correctly`, () => {
   const tree = renderer
     .create(<FilmPage
+      authorizationStatus={AuthorizationStatus.NO_AUTH}
+      authInfo={{
+        id: 1,
+        email: `a@a.a`,
+        name: `a`,
+        avatarUrl: `img/avatar.jpg`
+      }}
       film={films[0]}
       films={films}
       onTitleClick={() => {}}
