@@ -1,5 +1,6 @@
 import React from 'react';
 import {PropValidator} from '../../prop-validator/prop-validator.js';
+import {AppRoute} from '../../const.js';
 
 const FilmCard = (props) => {
   const {
@@ -17,18 +18,21 @@ const FilmCard = (props) => {
     <article
       className="small-movie-card catalog__movies-card"
       id={id}
-      onMouseOver={() => {
+      onMouseEnter={() => {
         currentTimer = setTimeout(onStartPlaying, 1000);
       }}
-      onMouseOut={() => {
+      onMouseLeave={() => {
         clearTimeout(currentTimer);
         onStopPlaying();
       }}
       onClick={() => {
         clearTimeout(currentTimer);
-        changeScreen(id);
-      }}>
-      <div className="small-movie-card__image">
+        changeScreen(AppRoute.createParticularFilmUrl(id));
+      }}
+    >
+      <div
+        className="small-movie-card__image"
+      >
         {renderVideoPlayer({
           src: videoSrc,
           width: `280`,
@@ -40,8 +44,16 @@ const FilmCard = (props) => {
           videoClass: ``
         })}
       </div>
-      <h3 className="small-movie-card__title" onClick={onTitleClick}>
-        <a className="small-movie-card__link" href="movie-page.html">{title}</a>
+      <h3
+        className="small-movie-card__title"
+        onClick={onTitleClick}
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          {title}
+        </a>
       </h3>
     </article>
   );

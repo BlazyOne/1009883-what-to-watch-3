@@ -1,176 +1,151 @@
 import React, {PureComponent} from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Redirect, Router} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/view-state/viewState.js';
-import {Operation as UserOperation} from '../../reducer/user/user.js';
+import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
 import Main from '../main/main.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import FilmPage from '../film-page/film-page.jsx';
 import FullScreenPlayer from '../full-screen-player/full-screen-player.jsx';
+import MyList from '../my-list/my-list.jsx';
+import PrivateRoute from '../private-route/private-route.jsx';
 import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
+import withError from '../../hocs/with-error/with-error.jsx';
 import {PropValidator} from '../../prop-validator/prop-validator.js';
 import {getGenre, getShowedFilmsAmount} from '../../reducer/view-state/selectors.js';
 import {getFilms, getPromoFlm} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus, getAuthInfo} from '../../reducer/user/selectors.js';
+import history from '../../history.js';
+import {AppRoute, filmIdStringAddition} from '../../const.js';
 
 const FullScreenPlayerWrapped = withVideoPlayer(FullScreenPlayer);
+const SignInWrapped = withError(SignIn);
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      screen: `main`
-    };
+    this.changeScreen = this.changeScreen.bind(this);
+    this.redirectScreen = this.redirectScreen.bind(this);
   }
 
-  _renderApp() {
-    const {authorizationStatus, authInfo, login, promoFilm, films, showedFilmsAmount, genre, onGenreChange, onIncrementShowed, loadReviewsToFilm} = this.props;
-    const {screen} = this.state;
+  changeScreen(screenUrl) {
+    history.push(screenUrl);
+  }
 
-    if (screen === `main`) {
-      return (
-        <Main
-          authorizationStatus={authorizationStatus}
-          authInfo={authInfo}
-          promoFilm={promoFilm}
-          films={films}
-          showedFilmsAmount={showedFilmsAmount}
-          genre={genre}
-          onTitleClick={(evt) => {
-            evt.preventDefault();
-          }}
-          changeScreen={(newScreen) => {
-            this.setState(() => ({
-              screen: newScreen,
-            }));
-
-            if (newScreen.substring(0, 5) === `film_`) {
-              loadReviewsToFilm(newScreen);
-            }
-          }}
-          onGenreChange={onGenreChange}
-          onIncrementShowed={onIncrementShowed}
-        />
-      );
-    }
-
-    if (screen === `signIn`) {
-      return (
-        <SignIn
-          authorizationStatus={authorizationStatus}
-          onSubmit={login}
-          changeScreen={(newScreen) => {
-            this.setState(() => ({
-              screen: newScreen,
-            }));
-
-            if (newScreen.substring(0, 5) === `film_`) {
-              loadReviewsToFilm(newScreen);
-            }
-          }}
-        />
-      );
-    }
-
-    const filmIndex = films.findIndex((film) => film.id === screen);
-    if (filmIndex > -1) {
-      return (
-        <FilmPage
-          authorizationStatus={authorizationStatus}
-          authInfo={authInfo}
-          film={films[filmIndex]}
-          films={films}
-          onTitleClick={(evt) => {
-            evt.preventDefault();
-          }}
-          changeScreen={(newScreen) => {
-            this.setState(() => ({
-              screen: newScreen,
-            }));
-
-            if (newScreen.substring(0, 5) === `film_`) {
-              loadReviewsToFilm(newScreen);
-            }
-          }}
-        />
-      );
-    }
-
-    if (screen.substring(0, 7) === `player_`) {
-      const index = films.findIndex((film) => film.id === screen.substring(7));
-      if (index > -1) {
-        return (
-          <FullScreenPlayerWrapped
-            film={films[index]}
-            changeScreen={(newScreen) => {
-              this.setState(() => ({
-                screen: newScreen,
-              }));
-
-              if (newScreen.substring(0, 5) === `film_`) {
-                loadReviewsToFilm(newScreen);
-              }
-            }}
-          />
-        );
-      }
-    }
-
-    return null;
+  redirectScreen(screenUrl) {
+    history.replace(screenUrl);
   }
 
   render() {
+    const {authorizationStatus, authInfo, login, promoFilm, films, showedFilmsAmount, genre, onGenreChange, onIncrementShowed, loadReviewsToFilm, changeFavoriteStatus, api} = this.props;
+
     return (
-      <BrowserRouter>
+      <Router
+        history={history}
+      >
         <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
-          </Route>
-          <Route exact path="/dev-film-page">
-            <FilmPage
-              authorizationStatus={this.props.authorizationStatus}
-              authInfo={this.props.authInfo}
-              film={this.props.films[0]}
-              films={this.props.films}
+          <Route exact path={AppRoute.MAIN}>
+            <Main
+              authorizationStatus={authorizationStatus}
+              authInfo={authInfo}
+              promoFilm={promoFilm}
+              films={films}
+              showedFilmsAmount={showedFilmsAmount}
+              genre={genre}
               onTitleClick={(evt) => {
                 evt.preventDefault();
               }}
-              changeScreen={(newScreen) => {
-                this.setState(() => ({
-                  screen: newScreen,
-                }));
-              }}
+              changeScreen={this.changeScreen}
+              onGenreChange={onGenreChange}
+              onIncrementShowed={onIncrementShowed}
+              changeFavoriteStatus={changeFavoriteStatus}
             />
           </Route>
-          <Route exact path="/dev-full-screen-player">
-            <FullScreenPlayerWrapped
-              film={this.props.films[0]}
-              changeScreen={(newScreen) => {
-                this.setState(() => ({
-                  screen: newScreen,
-                }));
-              }}
-            />
-          </Route>
-          <Route exact path="/dev-sign-in">
-            <SignIn
-              authorizationStatus={this.props.authorizationStatus}
-              onSubmit={() => { }}
-              changeScreen={(newScreen) => {
-                this.setState(() => ({
-                  screen: newScreen,
-                }));
+          <Route
+            exact
+            path={AppRoute.SIGN_IN}
+            render={() => {
+              if (authorizationStatus === AuthorizationStatus.AUTH) {
+                return (
+                  <Redirect to={AppRoute.MAIN} />
+                );
+              } else {
+                return (
+                  <SignInWrapped
+                    authorizationStatus={authorizationStatus}
+                    onSubmit={login}
+                    changeScreen={this.changeScreen}
+                  />
+                );
+              }
+            }}
+          />
+          <Route
+            exact
+            path={AppRoute.FILM_GENERAL}
+            render={(routeProps) => {
+              const {match: {params: {id: routeId}}} = routeProps;
+              const clientId = `${filmIdStringAddition}${routeId}`;
+              const filmIndex = films.findIndex((film) => film.id === clientId);
 
-                if (newScreen.substring(0, 5) === `film_`) {
-                  this.props.loadReviewsToFilm(newScreen);
-                }
-              }}
-            />
-          </Route>
+              return (
+                <FilmPage
+                  authorizationStatus={authorizationStatus}
+                  authInfo={authInfo}
+                  film={films[filmIndex] ?
+                    films[filmIndex] :
+                    promoFilm}
+                  films={films}
+                  onTitleClick={(evt) => {
+                    evt.preventDefault();
+                  }}
+                  changeScreen={this.changeScreen}
+                  loadReviewsToFilm={loadReviewsToFilm}
+                  changeFavoriteStatus={changeFavoriteStatus}
+                />
+              );
+            }}
+          />
+          <Route
+            exact
+            path={AppRoute.PLAYER_GENERAL}
+            render={(routeProps) => {
+              const {match: {params: {id: routeId}}} = routeProps;
+              const clientId = `${filmIdStringAddition}${routeId}`;
+              const filmIndex = films.findIndex((film) => film.id === clientId);
+
+              return (
+                <FullScreenPlayerWrapped
+                  film={films[filmIndex] ?
+                    films[filmIndex] :
+                    promoFilm}
+                  changeScreen={this.changeScreen}
+                />
+              );
+            }}
+          />
+          <PrivateRoute
+            exact
+            path={AppRoute.MY_LIST}
+            redirectScreen={this.redirectScreen}
+            api={api}
+            render={() => {
+              return (
+                <MyList
+                  authInfo={authInfo}
+                  films={films}
+                  onTitleClick={(evt) => {
+                    evt.preventDefault();
+                  }}
+                  changeScreen={this.changeScreen}
+                />
+              );
+            }}
+          />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
@@ -186,6 +161,8 @@ App.propTypes = {
   onGenreChange: PropValidator.ON_GENRE_CHANGE,
   onIncrementShowed: PropValidator.ON_INCREMENT_SHOWED,
   loadReviewsToFilm: PropValidator.LOAD_REVIEWS_TO_FILM,
+  changeFavoriteStatus: PropValidator.CHANGE_FAVORITE_STATUS,
+  api: PropValidator.API
 };
 
 const mapStateToProps = (state) => ({
@@ -198,8 +175,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  login(authData) {
-    dispatch(UserOperation.login(authData));
+  login(authData, onError) {
+    dispatch(UserOperation.login(authData, onError));
   },
   onGenreChange(genre) {
     dispatch(ActionCreator.changeGenre(genre));
@@ -210,6 +187,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   loadReviewsToFilm(filmId) {
     dispatch(DataOperation.loadReviewsToFilm(filmId));
+  },
+  changeFavoriteStatus(filmId) {
+    dispatch(DataOperation.changeFavoriteStatus(filmId));
   }
 });
 

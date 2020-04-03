@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {PropValidator} from '../../prop-validator/prop-validator.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AppRoute} from '../../const.js';
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -13,27 +13,46 @@ class SignIn extends PureComponent {
   }
 
   handleSubmit(evt) {
-    const {onSubmit} = this.props;
+    const {onSubmit, changeError} = this.props;
 
     evt.preventDefault();
+
+    const onError = (err) => {
+      if (err) {
+        changeError({
+          status: err.status,
+          message: err.message
+        });
+      } else {
+        changeError(null);
+      }
+    };
 
     onSubmit({
       login: this.loginRef.current.value,
       password: this.passwordRef.current.value,
-    });
+    }, onError);
   }
 
   render() {
-    const {authorizationStatus, changeScreen} = this.props;
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      changeScreen(`main`);
-    }
+    const {error, changeScreen} = this.props;
+    const errorMessage = error ?
+      `An error occured while downloading.${error.status ? ` Status: ${error.status}.` : ``} ${error.message ? ` Message: ${error.message}.` : ``}`
+      : ``;
 
     return (
       <div className="user-page">
         <header className="page-header user-page__head">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <a
+              href="main.html"
+              className="logo__link"
+              onClick={(evt) => {
+                evt.preventDefault();
+
+                changeScreen(AppRoute.MAIN);
+              }}
+            >
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -49,6 +68,11 @@ class SignIn extends PureComponent {
             className="sign-in__form"
             onSubmit={this.handleSubmit}
           >
+            {error ?
+              <div className="sign-in__message">
+                <p>{errorMessage}</p>
+              </div> :
+              ``}
             <div className="sign-in__fields">
               <div className="sign-in__field">
                 <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={this.loginRef}/>
@@ -67,7 +91,15 @@ class SignIn extends PureComponent {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <a
+              href="main.html"
+              className="logo__link logo__link--light"
+              onClick={(evt) => {
+                evt.preventDefault();
+
+                changeScreen(AppRoute.MAIN);
+              }}
+            >
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -85,7 +117,8 @@ class SignIn extends PureComponent {
 
 SignIn.propTypes = {
   onSubmit: PropValidator.ON_SUBMIT,
-  authorizationStatus: PropValidator.AUTHORIZATION_STATUS,
+  error: PropValidator.ERROR,
+  changeError: PropValidator.CHANGE_ERROR,
   changeScreen: PropValidator.CHANGE_SCREEN
 };
 

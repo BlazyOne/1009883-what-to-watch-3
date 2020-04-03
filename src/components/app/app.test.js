@@ -473,6 +473,8 @@ it(`Should App render correctly`, () => {
       onGenreChange={() => {}}
       onIncrementShowed={() => {}}
       loadReviewsToFilm={() => {}}
+      changeFavoriteStatus={() => {}}
+      api={() => {}}
     />, {
       createNodeMock: () => {
         return {};

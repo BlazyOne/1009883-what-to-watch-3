@@ -481,6 +481,7 @@ it(`Shold Main render correctly when all films are showed and user is not signed
       changeScreen={() => {}}
       onGenreChange={() => {}}
       onIncrementShowed={() => {}}
+      changeFavoriteStatus={() => {}}
     />, {
       createNodeMock: () => {
         return {};
@@ -504,10 +505,11 @@ it(`Shold Main render correctly when not all films are showed and user is signed
       films={filmsExtra}
       showedFilmsAmount={8}
       genre={`All`}
-      onTitleClick={() => { }}
-      changeScreen={() => { }}
-      onGenreChange={() => { }}
-      onIncrementShowed={() => { }}
+      onTitleClick={() => {}}
+      changeScreen={() => {}}
+      onGenreChange={() => {}}
+      onIncrementShowed={() => {}}
+      changeFavoriteStatus={() => {}}
     />, {
       createNodeMock: () => {
         return {};

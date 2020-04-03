@@ -1,8 +1,6 @@
-import MockAdapter from 'axios-mock-adapter';
-import {createAPI} from '../../api.js';
-import {reducer, ActionType, ActionCreator, Operation} from './data.js';
-
-const api = createAPI(() => {});
+import React from 'react';
+import renderer from 'react-test-renderer';
+import MyList from './my-list.jsx';
 
 const films = [
   {
@@ -460,131 +458,23 @@ When a funeral of a British spy is attacked, all of the remaining spies are kill
   }
 ];
 
-const filmNotLoaded = {
-  id: ``,
-  isFavorite: false,
-  title: `Movie has not loaded`,
-  cardImage: ``,
-  videoPreview: ``,
-  video: ``,
-  backgroundImage: ``,
-  genre: ``,
-  year: ``,
-  poster: ``,
-  ratingScore: ``,
-  ratingCount: ``,
-  description: ``,
-  director: ``,
-  starring: [],
-  runTime: ``,
-  reviews: []
-};
+it(`Should MyList render correctly`, () => {
+  const tree = renderer
+    .create(<MyList
+      authInfo={{
+        id: 1,
+        email: `a@a.a`,
+        name: `a`,
+        avatarUrl: `img/avatar.jpg`
+      }}
+      films={films}
+      onTitleClick={() => {}}
+      changeScreen={() => {}}
+    />, {
+      createNodeMock: () => {
+        return {};
+      }
+    }).toJSON();
 
-const filmUndefined = {
-  backgroundImage: undefined,
-  cardImage: undefined,
-  description: undefined,
-  director: undefined,
-  genre: undefined,
-  id: `film_undefined`,
-  isFavorite: undefined,
-  poster: undefined,
-  ratingCount: `undefined ratings`,
-  ratingScore: `undefined`,
-  reviews: [],
-  runTime: `NaNh NaNm`,
-  starring: undefined,
-  title: undefined,
-  video: undefined,
-  videoPreview: undefined,
-  year: `undefined`,
-};
-
-it(`Reducer without additional parameters should return initial state`, () => {
-  expect(reducer(void 0, {})).toEqual({
-    films: [],
-    promoFilm: filmNotLoaded
-  });
-});
-
-it(`Reducer should update films by load films`, () => {
-  expect(reducer({
-    films: [],
-    promoFilm: filmNotLoaded
-  }, {
-    type: ActionType.LOAD_FILMS,
-    payload: films,
-  })).toEqual({
-    films,
-    promoFilm: filmNotLoaded
-  });
-});
-
-it(`Reducer should update promoFilm by load promoFilm`, () => {
-  expect(reducer({
-    films: [],
-    promoFilm: filmNotLoaded
-  }, {
-    type: ActionType.LOAD_PROMO_FILM,
-    payload: films[0],
-  })).toEqual({
-    films: [],
-    promoFilm: films[0]
-  });
-});
-
-describe(`Action creators work correctly`, () => {
-  it(`Action creator for load films returns correct action`, () => {
-    expect(ActionCreator.loadFilms(films)).toEqual({
-      type: ActionType.LOAD_FILMS,
-      payload: films,
-    });
-  });
-
-  it(`Action creator for load promoFilm returns correct action`, () => {
-    expect(ActionCreator.loadPromoFilm(films[0])).toEqual({
-      type: ActionType.LOAD_PROMO_FILM,
-      payload: films[0],
-    });
-  });
-});
-
-describe(`Operation work correctly`, () => {
-  it(`Should make a correct API call to /films`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const filmsLoader = Operation.loadFilms();
-
-    apiMock
-      .onGet(`/films`)
-      .reply(200, [{fake: true}]);
-
-    return filmsLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_FILMS,
-          payload: [filmUndefined],
-        });
-      });
-  });
-
-  it(`Should make a correct API call to /films/promo`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const promoFilmLoader = Operation.loadPromoFilm();
-
-    apiMock
-      .onGet(`/films/promo`)
-      .reply(200, {fake: true});
-
-    return promoFilmLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_PROMO_FILM,
-          payload: filmUndefined,
-        });
-      });
-  });
+  expect(tree).toMatchSnapshot();
 });

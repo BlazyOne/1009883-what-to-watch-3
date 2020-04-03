@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import {PropValidator} from '../../prop-validator/prop-validator.js';
+import {AppRoute} from '../../const.js';
 
 class FullScreenPlayer extends PureComponent {
   constructor(props) {
@@ -26,7 +27,9 @@ class FullScreenPlayer extends PureComponent {
     const timeLeftSeconds = Math.floor(timeLeft % 60);
     const timeLeftString = `${timeLeftHours}:${timeLeftMinutes}:${timeLeftSeconds}`;
 
-    const progressPercent = (progress / duration) * 100;
+    const progressPercent = progress ?
+      (progress / duration) * 100 :
+      0;
 
     return (
       <div className="player" ref={this._playerWrapperRef}>
@@ -45,7 +48,7 @@ class FullScreenPlayer extends PureComponent {
           type="button"
           className="player__exit"
           onClick={() => {
-            changeScreen(id);
+            changeScreen(AppRoute.createParticularFilmUrl(id));
           }}
         >Exit</button>
 

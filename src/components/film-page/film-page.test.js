@@ -473,6 +473,8 @@ it(`Should FilmPage render correctly`, () => {
       films={films}
       onTitleClick={() => {}}
       changeScreen={() => {}}
+      loadReviewsToFilm={() => {}}
+      changeFavoriteStatus={() => {}}
     />, {
       createNodeMock: () => {
         return {};

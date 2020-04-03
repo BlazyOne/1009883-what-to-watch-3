@@ -4,6 +4,7 @@ import GenresList from '../genres-list/genres-list.jsx';
 import FilmsList from '../films-list/films-list.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AppRoute} from '../../const.js';
 
 const Main = (props) => {
   const {
@@ -15,7 +16,8 @@ const Main = (props) => {
       genre: promoGenre,
       year: promoYear,
       backgroundImage: promoBackgroundImage,
-      poster: promoPoster
+      poster: promoPoster,
+      isFavorite: promoIsFavorite
     },
     films,
     showedFilmsAmount,
@@ -23,7 +25,8 @@ const Main = (props) => {
     onTitleClick,
     changeScreen,
     onGenreChange,
-    onIncrementShowed
+    onIncrementShowed,
+    changeFavoriteStatus
   } = props;
 
   const filteredFilms = films.filter((film) => {
@@ -61,13 +64,17 @@ const Main = (props) => {
                   alt="User avatar"
                   width="63"
                   height="63"
+                  onClick={() => {
+                    changeScreen(AppRoute.MY_LIST);
+                  }}
                 />
               </div> :
               <a
                 href="#"
                 className="user-block__link"
-                onClick={() => {
-                  changeScreen(`signIn`);
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  changeScreen(AppRoute.SIGN_IN);
                 }}
               >Sign in</a>}
           </div>
@@ -91,7 +98,7 @@ const Main = (props) => {
                   className="btn btn--play movie-card__button"
                   type="button"
                   onClick={() => {
-                    changeScreen(`player_` + promoId);
+                    changeScreen(AppRoute.createParticularPlayerUrl(promoId));
                   }}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -99,10 +106,24 @@ const Main = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                <button
+                  className="btn btn--list movie-card__button"
+                  type="button"
+                  onClick={() => {
+                    if (authorizationStatus === AuthorizationStatus.AUTH) {
+                      changeFavoriteStatus(promoId);
+                    } else {
+                      changeScreen(AppRoute.SIGN_IN);
+                    }
+                  }}
+                >
+                  {promoIsFavorite ?
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use xlinkHref="#in-list"></use>
+                    </svg> :
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>}
                   <span>My list</span>
                 </button>
               </div>
@@ -161,7 +182,8 @@ Main.propTypes = {
   onTitleClick: PropValidator.ON_TITLE_CLICK,
   changeScreen: PropValidator.CHANGE_SCREEN,
   onGenreChange: PropValidator.ON_GENRE_CHANGE,
-  onIncrementShowed: PropValidator.ON_INCREMENT_SHOWED
+  onIncrementShowed: PropValidator.ON_INCREMENT_SHOWED,
+  changeFavoriteStatus: PropValidator.CHANGE_FAVORITE_STATUS
 };
 
 export default Main;

@@ -63,7 +63,18 @@ const PropValidator = {
     email: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired
-  })
+  }),
+  EXACT: PropTypes.bool.isRequired,
+  PATH: PropTypes.string.isRequired,
+  RENDER: PropTypes.func.isRequired,
+  ERROR: PropTypes.shape({
+    status: PropTypes.number,
+    message: PropTypes.string
+  }),
+  CHANGE_ERROR: PropTypes.func.isRequired,
+  CHANGE_FAVORITE_STATUS: PropTypes.func.isRequired,
+  REDIRECT_SCREEN: PropTypes.func.isRequired,
+  API: PropTypes.func.isRequired
 };
 
 export {PropValidator};

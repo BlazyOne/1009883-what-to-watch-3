@@ -26,6 +26,15 @@ class VideoPlayer extends PureComponent {
         onTimeUpdate(0);
       };
     }
+
+    const maxReloadNumber = 8;
+    let currentReloadNumber = 1;
+    video.onerror = () => {
+      if (currentReloadNumber <= maxReloadNumber) {
+        video.load();
+        currentReloadNumber++;
+      }
+    };
   }
 
   componentWillUnmount() {
@@ -54,6 +63,9 @@ class VideoPlayer extends PureComponent {
     const video = this._videoRef.current;
 
     if (isPlaying) {
+      if (video.error && video.error.code === 2) {
+        video.load();
+      }
       video.play();
     } else {
       video.pause();

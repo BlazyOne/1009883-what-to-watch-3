@@ -29,7 +29,9 @@ store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App/>
+      <App
+        api={api}
+      />
     </Provider>,
     document.querySelector(`#root`)
 );

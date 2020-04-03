@@ -117,6 +117,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -203,8 +204,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_1"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -229,8 +230,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_2"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -255,8 +256,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_3"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -281,8 +282,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_4"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -307,8 +308,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_5"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -333,8 +334,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_6"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -359,8 +360,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_7"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -385,8 +386,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_8"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -501,6 +502,7 @@ Array [
           <img
             alt="User avatar"
             height="63"
+            onClick={[Function]}
             src="https://htmlacademy-react-3.appspot.com/img/avatar.jpg"
             width="63"
           />
@@ -568,6 +570,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -654,8 +657,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_1"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -680,8 +683,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_2"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -706,8 +709,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_3"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -732,8 +735,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_4"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -758,8 +761,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_5"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -784,8 +787,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_6"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -810,8 +813,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_7"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -836,8 +839,8 @@ Array [
           className="small-movie-card catalog__movies-card"
           id="film_8"
           onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"

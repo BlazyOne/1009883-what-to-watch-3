@@ -8,7 +8,7 @@ const AuthorizationStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  authInfo: {}
+  authInfo: {id: 0, email: ``, name: ``, avatarUrl: ``}
 };
 
 const ActionType = {
@@ -48,7 +48,7 @@ const Operation = {
       });
   },
 
-  login: (authData) => (dispatch, getState, api) => {
+  login: (authData, onError) => (dispatch, getState, api) => {
     return api.post(`/login`, {
       email: authData.login,
       password: authData.password,
@@ -63,6 +63,9 @@ const Operation = {
       .then(() => {
         dispatch(DataOperation.loadFilms());
         dispatch(DataOperation.loadPromoFilm());
+      })
+      .catch((err) => {
+        onError(err);
       });
   },
 };
