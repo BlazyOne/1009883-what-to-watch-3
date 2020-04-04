@@ -4,7 +4,7 @@ const FilmInfoTabTypes = {
   REVIEWS: `reviews`
 };
 
-const filmIdStringAddition = `film_`;
+const FILM_ID_STRING_ADDITION = `film_`;
 
 const AppRoute = {
   MAIN: `/`,
@@ -12,22 +12,22 @@ const AppRoute = {
   MY_LIST: `/mylist`,
   FILM_GENERAL: `/films/:id`,
   createParticularFilmUrl(filmId) {
-    const serverFilmId = +filmId.substring(filmIdStringAddition.length);
+    const serverFilmId = +filmId.substring(FILM_ID_STRING_ADDITION.length);
 
     return `/films/${serverFilmId}`;
   },
   ADD_REVIEW_GENERAL: `/films/:id/review`,
   createParticularAddReviewUrl(filmId) {
-    const serverFilmId = +filmId.substring(filmIdStringAddition.length);
+    const serverFilmId = +filmId.substring(FILM_ID_STRING_ADDITION.length);
 
     return `/films/${serverFilmId}/review`;
   },
   PLAYER_GENERAL: `/player/:id`,
   createParticularPlayerUrl(filmId) {
-    const serverFilmId = +filmId.substring(filmIdStringAddition.length);
+    const serverFilmId = +filmId.substring(FILM_ID_STRING_ADDITION.length);
 
     return `/player/${serverFilmId}`;
   }
 };
 
-export {FilmInfoTabTypes, filmIdStringAddition, AppRoute};
+export {FilmInfoTabTypes, FILM_ID_STRING_ADDITION, AppRoute};

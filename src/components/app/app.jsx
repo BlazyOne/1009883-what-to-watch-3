@@ -18,7 +18,7 @@ import {getGenre, getShowedFilmsAmount} from '../../reducer/view-state/selectors
 import {getFilms, getPromoFlm} from '../../reducer/data/selectors.js';
 import {getAuthorizationStatus, getAuthInfo} from '../../reducer/user/selectors.js';
 import history from '../../history.js';
-import {AppRoute, filmIdStringAddition} from '../../const.js';
+import {AppRoute, FILM_ID_STRING_ADDITION} from '../../const.js';
 
 const FullScreenPlayerWrapped = withVideoPlayer(FullScreenPlayer);
 const SignInWrapped = withError(SignIn);
@@ -84,7 +84,7 @@ class App extends PureComponent {
             path={AppRoute.FILM_GENERAL}
             render={(routeProps) => {
               const {match: {params: {id: routeId}}} = routeProps;
-              const clientId = `${filmIdStringAddition}${routeId}`;
+              const clientId = `${FILM_ID_STRING_ADDITION}${routeId}`;
               const filmIndex = films.findIndex((film) => film.id === clientId);
 
               return (
@@ -110,7 +110,7 @@ class App extends PureComponent {
             path={AppRoute.PLAYER_GENERAL}
             render={(routeProps) => {
               const {match: {params: {id: routeId}}} = routeProps;
-              const clientId = `${filmIdStringAddition}${routeId}`;
+              const clientId = `${FILM_ID_STRING_ADDITION}${routeId}`;
               const filmIndex = films.findIndex((film) => film.id === clientId);
 
               return (
@@ -144,7 +144,7 @@ class App extends PureComponent {
             path={AppRoute.ADD_REVIEW_GENERAL}
             render={(routeProps) => {
               const {match: {params: {id: routeId}}} = routeProps;
-              const clientId = `${filmIdStringAddition}${routeId}`;
+              const clientId = `${FILM_ID_STRING_ADDITION}${routeId}`;
               const filmIndex = films.findIndex((film) => film.id === clientId);
 
               return (

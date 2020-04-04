@@ -6,16 +6,22 @@ const STARRING_SHORT_LENGTH = 4;
 
 const getRatingLevel = (ratingScore) => {
   const ratingScoreNumber = +ratingScore.replace(`,`, `.`);
-  if (ratingScoreNumber >= 0 && ratingScoreNumber < 3) {
-    return `Bad`;
-  } else if (ratingScoreNumber >= 3 && ratingScoreNumber < 5) {
-    return `Normal`;
-  } else if (ratingScoreNumber >= 5 && ratingScoreNumber < 8) {
-    return `Good`;
-  } else if (ratingScoreNumber >= 8 && ratingScoreNumber < 10) {
-    return `Very good`;
-  } else if (ratingScoreNumber === 10) {
-    return `Awesome`;
+  if (ratingScoreNumber >= 0) {
+    if (ratingScoreNumber < 3) {
+      return `Bad`;
+    }
+    if (ratingScoreNumber < 5) {
+      return `Normal`;
+    }
+    if (ratingScoreNumber < 8) {
+      return `Good`;
+    }
+    if (ratingScoreNumber < 10) {
+      return `Very good`;
+    }
+    if (ratingScoreNumber === 10) {
+      return `Awesome`;
+    }
   }
 
   return ``;

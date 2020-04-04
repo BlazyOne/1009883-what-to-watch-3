@@ -1,7 +1,7 @@
 import {extend} from '../../utils.js';
 import {transformFilmFromServerToClient, transformReviewFromServerToClient} from '../../adapter.js';
 import NameSpace from '../name-space.js';
-import {filmIdStringAddition} from '../../const.js';
+import {FILM_ID_STRING_ADDITION} from '../../const.js';
 
 const initialState = {
   films: [],
@@ -66,7 +66,7 @@ const Operation = {
       });
   },
   loadReviewsToFilm: (filmId) => (dispatch, getState, api) => {
-    const serverFilmId = +filmId.substring(filmIdStringAddition.length);
+    const serverFilmId = +filmId.substring(FILM_ID_STRING_ADDITION.length);
 
     return api.get(`/comments/${serverFilmId}`)
       .then((response) => {
@@ -85,7 +85,7 @@ const Operation = {
       });
   },
   changeFavoriteStatus: (filmId) => (dispatch, getState, api) => {
-    const serverFilmId = +filmId.substring(filmIdStringAddition.length);
+    const serverFilmId = +filmId.substring(FILM_ID_STRING_ADDITION.length);
     const films = getState()[NameSpace.DATA].films;
     const filmIndex = films.findIndex((film) => film.id === filmId);
     const film = films[filmIndex];
@@ -109,7 +109,7 @@ const Operation = {
       });
   },
   postReview: (filmId, reviewData, onSuccess, onError) => (dispatch, getState, api) => {
-    const serverFilmId = +filmId.substring(filmIdStringAddition.length);
+    const serverFilmId = +filmId.substring(FILM_ID_STRING_ADDITION.length);
 
     api.post(`/comments/${serverFilmId}`, {
       rating: reviewData.rating,

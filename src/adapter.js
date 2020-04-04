@@ -1,8 +1,8 @@
-import {filmIdStringAddition} from './const.js';
+import {FILM_ID_STRING_ADDITION} from './const.js';
 
 const transformFilmFromServerToClient = (data) => {
   return {
-    id: filmIdStringAddition + data.id,
+    id: FILM_ID_STRING_ADDITION + data.id,
     title: data.name,
     poster: data.poster_image,
     cardImage: data.preview_image,
