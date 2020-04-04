@@ -93,20 +93,48 @@ const Operation = {
     const currentFavoriteStatus = film.isFavorite;
 
     api.post(`/favorite/${serverFilmId}/${currentFavoriteStatus ? 0 : 1}`)
-    .then((response) => {
-      return transformFilmFromServerToClient(response.data);
+      .then((response) => {
+        return transformFilmFromServerToClient(response.data);
+      })
+      .then((filmData) => {
+        return films.slice(0, filmIndex)
+          .concat(extend(films[filmIndex], filmData))
+          .concat(films.slice(filmIndex + 1));
+      })
+      .then((filmsData) => {
+        dispatch(ActionCreator.loadFilms(filmsData));
+        if (film.id === promoFilm.id) {
+          dispatch(ActionCreator.loadPromoFilm(filmsData[filmIndex]));
+        }
+      });
+  },
+  postReview: (filmId, reviewData, onSuccess, onError) => (dispatch, getState, api) => {
+    const serverFilmId = +filmId.substring(filmIdStringAddition.length);
+
+    api.post(`/comments/${serverFilmId}`, {
+      rating: reviewData.rating,
+      comment: reviewData.comment
     })
-    .then((filmData) => {
-      return films.slice(0, filmIndex)
-        .concat(extend(films[filmIndex], filmData))
-        .concat(films.slice(filmIndex + 1));
-    })
-    .then((filmsData) => {
-      dispatch(ActionCreator.loadFilms(filmsData));
-      if (film.id === promoFilm.id) {
-        dispatch(ActionCreator.loadPromoFilm(filmsData[filmIndex]));
-      }
-    });
+      .then((response) => {
+        return response.data.map((review) => transformReviewFromServerToClient(review));
+      })
+      .then((reviewsData) => {
+        const films = getState()[NameSpace.DATA].films;
+        const filmIndex = films.findIndex((film) => film.id === filmId);
+
+        return films.slice(0, filmIndex)
+          .concat(extend(films[filmIndex], {reviews: reviewsData}))
+          .concat(films.slice(filmIndex + 1));
+      })
+      .then((filmsData) => {
+        dispatch(ActionCreator.loadFilms(filmsData));
+      })
+      .then(() => {
+        onSuccess();
+      })
+      .catch((err) => {
+        onError(err);
+      });
   }
 };
 

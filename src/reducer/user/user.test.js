@@ -3,45 +3,54 @@ import {reducer, ActionCreator, ActionType, AuthorizationStatus} from "./user.js
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
+    authorizationCheckHappened: false,
     authorizationStatus: AuthorizationStatus.NO_AUTH,
     authInfo: {id: 0, email: ``, name: ``, avatarUrl: ``}
   });
 });
 
-it(`Reducer should change authorizationStatus by a given value`, () => {
+it(`Reducer should change authorizationStatus by a given value and change authorizationCheckHappended to true`, () => {
   expect(reducer({
+    authorizationCheckHappened: false,
     authorizationStatus: AuthorizationStatus.NO_AUTH,
   }, {
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: AuthorizationStatus.AUTH,
   })).toEqual({
+    authorizationCheckHappened: true,
     authorizationStatus: AuthorizationStatus.AUTH,
   });
 
   expect(reducer({
+    authorizationCheckHappened: true,
     authorizationStatus: AuthorizationStatus.AUTH,
   }, {
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: AuthorizationStatus.NO_AUTH,
   })).toEqual({
+    authorizationCheckHappened: true,
     authorizationStatus: AuthorizationStatus.NO_AUTH,
   });
 
   expect(reducer({
+    authorizationCheckHappened: true,
     authorizationStatus: AuthorizationStatus.AUTH,
   }, {
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: AuthorizationStatus.AUTH,
   })).toEqual({
+    authorizationCheckHappened: true,
     authorizationStatus: AuthorizationStatus.AUTH,
   });
 
   expect(reducer({
+    authorizationCheckHappened: false,
     authorizationStatus: AuthorizationStatus.NO_AUTH,
   }, {
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: AuthorizationStatus.NO_AUTH,
   })).toEqual({
+    authorizationCheckHappened: true,
     authorizationStatus: AuthorizationStatus.NO_AUTH,
   });
 });

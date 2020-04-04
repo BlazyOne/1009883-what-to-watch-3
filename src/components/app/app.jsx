@@ -9,6 +9,7 @@ import SignIn from '../sign-in/sign-in.jsx';
 import FilmPage from '../film-page/film-page.jsx';
 import FullScreenPlayer from '../full-screen-player/full-screen-player.jsx';
 import MyList from '../my-list/my-list.jsx';
+import AddReview from '../add-review/add-review.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
 import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
 import withError from '../../hocs/with-error/with-error.jsx';
@@ -21,25 +22,21 @@ import {AppRoute, filmIdStringAddition} from '../../const.js';
 
 const FullScreenPlayerWrapped = withVideoPlayer(FullScreenPlayer);
 const SignInWrapped = withError(SignIn);
+const AddReviewWrapped = withError(AddReview);
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this.changeScreen = this.changeScreen.bind(this);
-    this.redirectScreen = this.redirectScreen.bind(this);
   }
 
   changeScreen(screenUrl) {
     history.push(screenUrl);
   }
 
-  redirectScreen(screenUrl) {
-    history.replace(screenUrl);
-  }
-
   render() {
-    const {authorizationStatus, authInfo, login, promoFilm, films, showedFilmsAmount, genre, onGenreChange, onIncrementShowed, loadReviewsToFilm, changeFavoriteStatus, api} = this.props;
+    const {authorizationStatus, authInfo, login, promoFilm, films, showedFilmsAmount, genre, onGenreChange, onIncrementShowed, loadReviewsToFilm, changeFavoriteStatus, postReview} = this.props;
 
     return (
       <Router
@@ -129,8 +126,6 @@ class App extends PureComponent {
           <PrivateRoute
             exact
             path={AppRoute.MY_LIST}
-            redirectScreen={this.redirectScreen}
-            api={api}
             render={() => {
               return (
                 <MyList
@@ -140,6 +135,26 @@ class App extends PureComponent {
                     evt.preventDefault();
                   }}
                   changeScreen={this.changeScreen}
+                />
+              );
+            }}
+          />
+          <PrivateRoute
+            exact
+            path={AppRoute.ADD_REVIEW_GENERAL}
+            render={(routeProps) => {
+              const {match: {params: {id: routeId}}} = routeProps;
+              const clientId = `${filmIdStringAddition}${routeId}`;
+              const filmIndex = films.findIndex((film) => film.id === clientId);
+
+              return (
+                <AddReviewWrapped
+                  authInfo={authInfo}
+                  film={films[filmIndex] ?
+                    films[filmIndex] :
+                    promoFilm}
+                  changeScreen={this.changeScreen}
+                  postReview={postReview}
                 />
               );
             }}
@@ -162,7 +177,7 @@ App.propTypes = {
   onIncrementShowed: PropValidator.ON_INCREMENT_SHOWED,
   loadReviewsToFilm: PropValidator.LOAD_REVIEWS_TO_FILM,
   changeFavoriteStatus: PropValidator.CHANGE_FAVORITE_STATUS,
-  api: PropValidator.API
+  postReview: PropValidator.POST_REVIEW
 };
 
 const mapStateToProps = (state) => ({
@@ -190,6 +205,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeFavoriteStatus(filmId) {
     dispatch(DataOperation.changeFavoriteStatus(filmId));
+  },
+  postReview(filmId, reviewData, onSuccess, onError) {
+    dispatch(DataOperation.postReview(filmId, reviewData, onSuccess, onError));
   }
 });
 

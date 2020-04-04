@@ -125,7 +125,15 @@ class FilmPage extends PureComponent {
                       </svg>}
                     <span>My list</span>
                   </button>
-                  <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                  <a
+                    href="add-review.html"
+                    className="btn movie-card__button"
+                    onClick={(evt) => {
+                      evt.preventDefault();
+
+                      changeScreen(AppRoute.createParticularAddReviewUrl(id));
+                    }}
+                  >Add review</a>
                 </div>
               </div>
             </div>

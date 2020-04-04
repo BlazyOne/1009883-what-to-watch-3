@@ -73,8 +73,8 @@ const PropValidator = {
   }),
   CHANGE_ERROR: PropTypes.func.isRequired,
   CHANGE_FAVORITE_STATUS: PropTypes.func.isRequired,
-  REDIRECT_SCREEN: PropTypes.func.isRequired,
-  API: PropTypes.func.isRequired
+  AUTHORIZATION_CHECK_HAPPENED: PropTypes.bool.isRequired,
+  POST_REVIEW: PropTypes.func.isRequired
 };
 
 export {PropValidator};
