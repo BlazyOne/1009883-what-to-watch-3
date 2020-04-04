@@ -474,7 +474,7 @@ it(`Should App render correctly`, () => {
       onIncrementShowed={() => {}}
       loadReviewsToFilm={() => {}}
       changeFavoriteStatus={() => {}}
-      api={() => {}}
+      postReview={() => {}}
     />, {
       createNodeMock: () => {
         return {};
