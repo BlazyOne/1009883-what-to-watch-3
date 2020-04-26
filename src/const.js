@@ -6,7 +6,7 @@ const FilmInfoTabTypes = {
 
 const FILM_ID_STRING_ADDITION = `film_`;
 
-const ROUTER_BASENAME = `/wtw-githubpages`;
+const ROUTER_BASENAME = `/`;
 
 const ROUTE_PREFIX = ROUTER_BASENAME === `/` ? `` : ROUTER_BASENAME;
 
